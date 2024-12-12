@@ -1,17 +1,27 @@
 <div class="lobby-container container-fluid d-flex flex-column justify-content-center align-items-center text-center">
   <!-- Imagen principal centrada con estilo moderno -->
-  <img src="/mateo/Telefunken_logo.png" alt="Imagen principal" class="pantalla-principal-imagen img-fluid mb-4">
+  <img
+    src="/mateo/Telefunken_logo.png"
+    alt="Imagen principal"
+    class="pantalla-principal-imagen img-fluid mb-4"
+  >
 
   <!-- Contenedor de botones con diseño optimizado -->
   <div class="botones-container">
-    <button routerLink="/crear-partida" routerLinkActive="active"
+    <button
+      routerLink="/crear-partida"
+      routerLinkActive="active"
       class="btn btn-primary btn-lg me-3 btn-hover"
-      (click)="crearPartida()">
+      (click)="crearPartida()"
+    >
       Crear Partida
     </button>
-    <button routerLink="/unirse-partida" routerLinkActive="active"
+    <button
+      routerLink="/unirse-partida"
+      routerLinkActive="active"
       class="btn btn-secondary btn-lg btn-hover"
-      (click)="unirsePartida()">
+      (click)="unirsePartida()"
+    >
       Unirse a Partida
     </button>
   </div>

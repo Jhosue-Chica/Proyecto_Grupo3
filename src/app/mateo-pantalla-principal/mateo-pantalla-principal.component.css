@@ -1,20 +1,29 @@
+:root {
+  --rich-black: #0b0c10ff;
+  --golden-yellow: #ffc300ff;
+  --crimson-red: #d90429ff;
+  --royal-blue: #003f88ff;
+  --platinum: #e5e5e5ff;
+}
+
 /* Estilado del contenedor principal con la imagen de fondo */
 .lobby-container {
   background-image: url('/jhosue/lobby-background.jpg');
-  background-size: cover; /* Cubre toda la pantalla */
-  background-position: center; /* Centra la imagen de fondo */
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  height: 100vh; /* Se ajusta a la altura completa de la pantalla */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
-  position: relative; /* Necesario para que el ::before se posicione correctamente */
+  color: var(--platinum);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Capa semitransparente para el fondo con ::before */
+/* Capa semitransparente con degradado */
 .lobby-container::before {
   content: "";
   position: absolute;
@@ -22,8 +31,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(11, 12, 16, 0.7); /* Semi-transparente */
-  z-index: 1; /* Asegurar que quede sobre el fondo */
+  background: linear-gradient(
+    45deg,
+    rgba(11, 12, 16, 0.8) 0%,
+    rgba(0, 63, 136, 0.6) 50%,
+    rgba(217, 4, 41, 0.4) 100%
+  );
+  z-index: 1;
 }
 
 /* Asegurar que el contenido esté por encima de la capa ::before */
@@ -34,31 +48,113 @@
 
 /* Estilado de la imagen */
 .pantalla-principal-imagen {
-  max-width: 300px; /* Tamaño máximo responsivo */
+  max-width: 300px;
   width: 80%;
   height: auto;
-  border-radius: 12px; /* Bordes redondeados para dar un look amigable */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease-in-out; /* Transición suave al interactuar */
+  border-radius: 20px;
+  border: 4px solid var(--golden-yellow);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.4),
+    0 0 30px var(--royal-blue);
+  transition: all 0.4s ease-in-out;
 }
 
 /* Efecto en hover sobre la imagen */
 .pantalla-principal-imagen:hover {
-  transform: scale(1.1);
+  transform: scale(1.05) rotate(2deg);
+  box-shadow:
+    0 15px 25px rgba(0, 0, 0, 0.5),
+    0 0 40px var(--crimson-red);
 }
 
 /* Estilado para los botones */
 .botones-container {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
 .botones-container .btn {
   padding: 12px 30px;
   font-size: 18px;
-  border-radius: 8px;
-  transition: transform 0.2s ease-in-out;
+  border-radius: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estilo personalizado para botones */
+.btn-primary {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  border: 2px solid var(--rich-black);
+}
+
+.btn-secondary {
+  background-color: var(--royal-blue);
+  color: var(--platinum);
+  border: 2px solid var(--golden-yellow);
+}
+
+/* Efecto hover mejorado */
+.btn-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.3),
+    transparent
+  );
+  transition: all 0.6s ease;
+}
+
+.btn-hover:hover::before {
+  left: 100%;
 }
 
 .btn-hover:hover {
-  transform: scale(1.1); /* Efecto hover en los botones */
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .botones-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .botones-container .btn {
+    width: 80%;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pantalla-principal-imagen {
+  animation: fadeInUp 1s ease-out;
+}
+
+.botones-container {
+  animation: fadeInUp 1s ease-out 0.5s backwards;
 }
