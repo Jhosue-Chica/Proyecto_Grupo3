@@ -1,0 +1,103 @@
+/* Color Variables */
+
+
+/* Lobby Container Styles */
+.lobby-container {
+  background-color: var(--rich-black);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+/* Lobby Title */
+.lobby-title {
+  color: var(--golden-yellow);
+  font-size: 3rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 195, 0, 0.5);
+}
+
+/* Section Subtitle */
+.section-subtitle {
+  color: var(--platinum);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Player List Styles */
+.player-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.player-card {
+  background-color: var(--royal-blue);
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  width: 200px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.player-card:hover {
+  transform: scale(1.05);
+}
+
+.player-avatar {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 3px solid var(--golden-yellow);
+}
+
+.player-info h3 {
+  color: var(--platinum);
+  margin-top: 0.5rem;
+}
+
+.player-info p {
+  color: var(--crimson-red);
+  font-style: italic;
+}
+
+/* Start Game Button */
+.btn-start-game {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-start-game:hover {
+  background-color: var(--crimson-red);
+  color: var(--platinum);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .player-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .player-card {
+    margin-bottom: 1rem;
+  }
+
+  .lobby-title {
+    font-size: 2rem;
+  }
+}
