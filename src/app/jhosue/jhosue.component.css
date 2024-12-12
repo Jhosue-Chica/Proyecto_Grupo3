@@ -1,14 +1,38 @@
 /* Color Variables */
 
 
-/* Lobby Container Styles */
+/* Lobby Container Styles with Background Image */
 .lobby-container {
-  background-color: var(--rich-black);
+  background-image: url('/jhosue/lobby-background.jpg');
+  background-size: cover; /* Covers entire container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents image from repeating */
+
+  /* Optional: Add a semi-transparent overlay for better readability */
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem 0;
+}
+
+/* Optional: Dark overlay to improve text visibility */
+.lobby-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 12, 16, 0.7); /* Semi-transparent rich black */
+  z-index: 1;
+}
+
+/* Ensure content is above the overlay */
+.container {
+  position: relative;
+  z-index: 2;
 }
 
 /* Lobby Title */
@@ -63,7 +87,7 @@
 
 .player-info p {
   color: var(--crimson-red);
-  font-style: italic;
+  font-weight: 500;
 }
 
 /* Start Game Button */
