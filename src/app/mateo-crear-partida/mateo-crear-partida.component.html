@@ -3,7 +3,7 @@
   <div class="crear-partida-content">
     <h1 class="page-title mb-4">Crear Nueva Partida</h1>
 
-    <form (ngSubmit)="crearPartida()" #partidaForm="ngForm" class="partida-form">
+    <form #partidaForm="ngForm" class="partida-form">
       <!-- Número de Jugadores -->
       <div class="form-group mb-4">
         <label for="numJugadores" class="form-label">Número de Jugadores</label>
@@ -23,28 +23,14 @@
       <div class="form-group mb-4">
         <label class="form-label">Número de Barajas</label>
         <input type="text" class="form-control" [value]="numeroBarajas" readonly>
-        <small class="text-explaind" >
+        <small class="text-explaind">
           Calculado automáticamente según número de jugadores
-        </small>
-      </div>
-
-      <!-- Código de Partida -->
-      <div class="form-group mb-4">
-        <label class="form-label">Código de Partida</label>
-        <div class="codigo-partida-container">
-          <input type="text" class="form-control codigo-partida" [value]="codigoPartida" readonly>
-          <button type="button" class="btn btn-copy" (click)="copiarCodigoPartida()">
-            <i class="bi bi-clipboard"></i>
-          </button>
-        </div>
-        <small *ngIf="codigoCopiadoMensaje" class="text-success">
-          {{ codigoCopiadoMensaje }}
         </small>
       </div>
 
       <!-- Botones de Acción -->
       <div class="botones-container">
-        <button type="submit" class="btn btn-primary btn-lg btn-hover" routerLink="/lobby" routerLinkActive="active"  [disabled]="!partidaForm.form.valid">
+        <button type="submit" class="btn btn-primary btn-lg btn-hover" (click)="crearPartida()" [disabled]="!partidaForm.form.valid" routerLink="/lobby">
           Crear Partida
         </button>
         <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home">

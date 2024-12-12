@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -10,41 +10,55 @@ import { RouterModule } from '@angular/router';
 })
 export class JhosueComponent {
 
-  // Room code properties
+  // Propiedades para recibir los detalles de la partida
+  @Input() partidaDetalles: {
+    numJugadores: number,
+    numeroBarajas: number,
+  } | null = null;
+
+  // Propiedades existentes
   roomCode: string = '';
   copyMessage: string = '';
+  codigoPartida: string = '';
 
   constructor() { }
 
   ngOnInit(): void {
-    // Generate room code on component initialization
-    this.generateRoomCode();
+    this.generarCodigoPartida();
+    console.log('Detalles de partida recibidos:', this.partidaDetalles);
   }
 
-  // Generate a random room code
-  generateRoomCode(): void {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const codeLength = 6;
+  // Observa los cambios en partidaDetalles
+  ngOnChanges(): void {
+    if (this.partidaDetalles) {
+      // Aquí puedes hacer más cosas con los detalles recibidos
+      console.log('Detalles de partida recibidos:', this.partidaDetalles);
+    }
+  }
 
+  generarCodigoPartida(): void {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const longitud = 6;
     this.roomCode = Array.from(
-      { length: codeLength },
-      () => characters.charAt(Math.floor(Math.random() * characters.length))
+      { length: longitud },
+      () => caracteres.charAt(Math.floor(Math.random() * caracteres.length))
     ).join('');
   }
 
-  // Copy room code to clipboard
+  // Método para copiar código
   copyRoomCode(): void {
-    // Use the Clipboard API
-    navigator.clipboard.writeText(this.roomCode).then(() => {
-      this.copyMessage = '¡Código copiado!';
+    if (this.roomCode) {
+      navigator.clipboard.writeText(this.roomCode).then(() => {
+        this.copyMessage = '¡Código copiado!';
 
-      // Reset the message after 2 seconds
-      setTimeout(() => {
-        this.copyMessage = '';
-      }, 2000);
-    }).catch(err => {
-      console.error('Error al copiar el código', err);
-      this.copyMessage = 'Error al copiar';
-    });
+        setTimeout(() => {
+          this.copyMessage = '';
+        }, 2000);
+      }).catch(err => {
+        console.error('Error al copiar el código', err);
+        this.copyMessage = 'Error al copiar';
+      });
+    }
   }
+
 }
