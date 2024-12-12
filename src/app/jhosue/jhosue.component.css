@@ -86,7 +86,7 @@
 }
 
 .player-info p {
-  color: var(--crimson-red);
+  color: var(--golden-yellow);
   font-weight: 500;
 }
 
@@ -123,5 +123,70 @@
 
   .lobby-title {
     font-size: 2rem;
+  }
+}
+
+/* Room Code Section Styles */
+.room-code-section {
+  margin-top: 2rem;
+}
+
+.room-code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.room-code {
+  background-color: var(--royal-blue);
+  color: var(--platinum);
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+  min-width: 250px;
+  text-align: center;
+}
+
+.btn-copy {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-copy:hover {
+  background-color: var(--crimson-red);
+  color: var(--platinum);
+  transform: translateY(-3px);
+}
+
+.copy-feedback {
+  color: var(--golden-yellow);
+  font-style: italic;
+  display: block;
+  height: 1.5rem;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .room-code-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .room-code {
+    font-size: 1.25rem;
+    min-width: 200px;
   }
 }

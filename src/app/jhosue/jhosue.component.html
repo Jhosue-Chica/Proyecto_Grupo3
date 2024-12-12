@@ -11,21 +11,21 @@
         <h2 class="section-subtitle">Jugadores Conectados</h2>
         <div class="player-list">
           <div class="player-card">
-            <img src="https://via.placeholder.com/100" class="player-avatar" alt="Player Avatar">
+            <img src="/jhosue/avatares1.png" class="player-avatar" alt="Player Avatar">
             <div class="player-info">
               <h3>Jugador 1</h3>
               <p>En espera...</p>
             </div>
           </div>
           <div class="player-card">
-            <img src="https://via.placeholder.com/100" class="player-avatar" alt="Player Avatar">
+            <img src="/jhosue/avatares2.png" class="player-avatar" alt="Player Avatar">
             <div class="player-info">
               <h3>Jugador 2</h3>
               <p>En espera...</p>
             </div>
           </div>
           <div class="player-card">
-            <img src="https://via.placeholder.com/100" class="player-avatar" alt="Player Avatar">
+            <img src="/jhosue/avatares3.png" class="player-avatar" alt="Player Avatar">
             <div class="player-info">
               <h3>Jugador 3</h3>
               <p>En espera...</p>
@@ -34,6 +34,20 @@
         </div>
       </div>
     </div>
+
+        <!-- New Room Code Section -->
+        <div class="row mt-4">
+          <div class="col-12 text-center room-code-section">
+            <h2 class="section-subtitle">Código de Sala</h2>
+            <div class="room-code-container">
+              <span class="room-code" id="roomCode">{{ roomCode }}</span>
+              <button class="btn btn-copy" (click)="copyRoomCode()">
+                <i class="bi bi-clipboard"></i> Copiar
+              </button>
+            </div>
+            <small class="copy-feedback">{{ copyMessage }}</small>
+          </div>
+        </div>
 
     <div class="row mt-4">
       <div class="col-12 text-center">
