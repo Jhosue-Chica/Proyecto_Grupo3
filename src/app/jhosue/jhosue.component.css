@@ -163,6 +163,10 @@
   transition: all 0.3s ease;
 }
 
+.botones-container {
+  flex-direction: column;
+}
+
 .btn-copy:hover {
   background-color: var(--crimson-red);
   color: var(--platinum);

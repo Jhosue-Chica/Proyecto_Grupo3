@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-jhosue',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './jhosue.component.html',
   styleUrl: './jhosue.component.css'
 })
