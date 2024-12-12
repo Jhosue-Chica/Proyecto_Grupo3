@@ -1,0 +1,64 @@
+/* Estilado del contenedor principal con la imagen de fondo */
+.lobby-container {
+  background-image: url('/jhosue/lobby-background.jpg');
+  background-size: cover; /* Cubre toda la pantalla */
+  background-position: center; /* Centra la imagen de fondo */
+  background-repeat: no-repeat;
+  height: 100vh; /* Se ajusta a la altura completa de la pantalla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative; /* Necesario para que el ::before se posicione correctamente */
+}
+
+/* Capa semitransparente para el fondo con ::before */
+.lobby-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 12, 16, 0.7); /* Semi-transparente */
+  z-index: 1; /* Asegurar que quede sobre el fondo */
+}
+
+/* Asegurar que el contenido esté por encima de la capa ::before */
+.lobby-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Estilado de la imagen */
+.pantalla-principal-imagen {
+  max-width: 300px; /* Tamaño máximo responsivo */
+  width: 80%;
+  height: auto;
+  border-radius: 12px; /* Bordes redondeados para dar un look amigable */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease-in-out; /* Transición suave al interactuar */
+}
+
+/* Efecto en hover sobre la imagen */
+.pantalla-principal-imagen:hover {
+  transform: scale(1.1);
+}
+
+/* Estilado para los botones */
+.botones-container {
+  margin-top: 1.5rem;
+}
+
+.botones-container .btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn-hover:hover {
+  transform: scale(1.1); /* Efecto hover en los botones */
+}
