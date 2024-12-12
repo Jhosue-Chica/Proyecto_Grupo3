@@ -44,10 +44,10 @@
 
       <!-- Botones de Acción -->
       <div class="botones-container">
-        <button type="submit" class="btn btn-primary btn-lg btn-hover" [disabled]="!partidaForm.form.valid">
+        <button type="submit" class="btn btn-primary btn-lg btn-hover" routerLink="/lobby" routerLinkActive="active"  [disabled]="!partidaForm.form.valid">
           Crear Partida
         </button>
-        <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/lobby">
+        <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home">
           Cancelar
         </button>
       </div>
