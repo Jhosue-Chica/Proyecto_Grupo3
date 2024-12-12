@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './mateo-crear-partida.component.css'
 })
 export class MateoCrearPartidaComponent implements OnInit {
+
+  @Output() codigoGeneradoEvent = new EventEmitter<string>();
+
   // Propiedades del formulario
   numJugadores: number = 2;
   numeroBarajas: number = 2;
@@ -48,6 +51,9 @@ export class MateoCrearPartidaComponent implements OnInit {
       { length: longitud },
       () => caracteres.charAt(Math.floor(Math.random() * caracteres.length))
     ).join('');
+
+    // Emitir el código generado al padre
+    this.codigoGeneradoEvent.emit(this.codigoPartida);
   }
 
   // Copiar código de partida al portapapeles
@@ -67,14 +73,14 @@ export class MateoCrearPartidaComponent implements OnInit {
 
   // Método para crear la partida
   crearPartida(): void {
-    // Lógica para crear la partida
+    // Emitir el código al crear la partida
+    this.codigoGeneradoEvent.emit(this.codigoPartida);
+
     console.log('Creando partida:', {
       jugadores: this.numJugadores,
       barajas: this.numeroBarajas,
       dificultad: this.dificultad,
       codigo: this.codigoPartida
     });
-
-    // Aquí iría la lógica para enviar los datos al servicio backend
   }
 }
