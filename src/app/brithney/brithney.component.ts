@@ -38,11 +38,33 @@ export class BrithneyComponent {
     event.preventDefault();
   }
 }
+
+
   // Función para asignar colores a cada columna
   getColumnClass(index: number): string {
     const colors = ['custom-bg-1', 'custom-bg-2', 'custom-bg-3', 'custom-bg-4'];
     return colors[index % colors.length]; // Asigna un color cíclico
   }
+  validateNonNegative(event: Event, i: number, j: number): void {
+    const input = event.target as HTMLInputElement;
+    let value = parseFloat(input.value);
 
+    // Verificar si el valor es negativo o cero
+    if (value <= 0) {
+      this.showAlert(); // Muestra el modal de alerta
+      input.value = ''; // Limpiar el campo de entrada
+      this.filas[i].valores[j] = ''; // Limpiar el valor en el modelo
+    }
+  }
+
+  showAlert(): void {
+    const modal = document.getElementById('alertModal')!;
+    modal.style.display = 'block'; // Muestra el modal
+  }
+
+  closeModal(): void {
+    const modal = document.getElementById('alertModal')!;
+    modal.style.display = 'none'; // Cierra el modal
+  }
 
 }

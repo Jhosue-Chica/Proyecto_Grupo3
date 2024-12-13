@@ -1,25 +1,55 @@
-<div class="background-container d-flex align-items-center justify-content-center">
+<div
+  class="background-container d-flex align-items-center justify-content-center"
+>
   <div class="table-responsive">
     <div class="title-container">
-      <img src="https://cdn-icons-png.flaticon.com/512/2533/2533982.png" width="70" alt="" />
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/2533/2533982.png"
+        width="70"
+        alt=""
+      />
       <h2 class="table-title">Anotaciones!</h2>
     </div>
     <table class="table table-bordered table-hover text-center">
       <thead>
         <tr class="table">
           <th></th>
-          <th id="bordes" *ngFor="let columna of columnas; let i = index" [ngClass]="getColumnClass(i)">
+          <th
+            id="bordes"
+            *ngFor="let columna of columnas; let i = index"
+            [ngClass]="getColumnClass(i)"
+          >
             {{ columna }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let fila of filas">
+        <!-- Modal de alerta -->
+        <div id="alertModal" class="modal">
+          <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <h3>¡Error!</h3>
+            <p>No se debe ingresar valores negativos o cero.</p>
+            <button class="btn-start-game " (click)="closeModal()">Cerrar</button>
+          </div>
+        </div>
+
+        <!-- La tabla y los demás elementos siguen igual -->
+        <tr *ngFor="let fila of filas; let i = index">
           <td class="row-color">{{ fila.nombre }}</td>
-          <td *ngFor="let valor of fila.valores; let i = index" [ngClass]="getColumnClass(i)">
-            <input [(ngModel)]="fila.valores[i]" type="number" (keydown)="preventEnter($event)" />
+          <td
+            *ngFor="let valor of fila.valores; let j = index"
+            [ngClass]="getColumnClass(j)"
+          >
+            <input
+              [(ngModel)]="fila.valores[j]"
+              type="number"
+              (keydown)="preventEnter($event)"
+              (input)="validateNonNegative($event, i, j)"
+            />
           </td>
         </tr>
+
         <tr>
           <td class="table-secondary font-weight-bold">Total</td>
           <td *ngFor="let columna of columnas; let i = index">
@@ -29,9 +59,16 @@
       </tbody>
     </table>
   </div>
-  <br>
+  <br />
 
-  <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home" routerLinkActive="active">Salir del Juego</button>
+  <button
+    type="button"
+    class="btn btn-secondary btn-lg btn-hover"
+    routerLink="/home"
+    routerLinkActive="active"
+  >
+    Salir del Juego
+  </button>
 
   <div class="color-strip">
     <div class="color-column custom-bg-1"></div>
