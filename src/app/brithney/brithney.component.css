@@ -23,14 +23,16 @@
   justify-content: center; /* Alinea horizontalmente */
   gap: 10px; /* Espacio entre el ícono y el texto */
   margin-bottom: 20px; /* Espacio debajo del título */
+
 }
 .table-title {
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  font-size: 2rem;
-  font-weight: bold;
   margin-bottom: 30px;
   text-align: center;
+  color: var(--golden-yellow);
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(225, 255, 0, 0.37);
+
 }
 
 /* Hover */
@@ -112,15 +114,6 @@ th{
 }
 
 
-input[type='text'] {
-  text-align: center;
-  font-size: 14px;
-  border-radius: 5px;
-}
-
-input:focus {
-  outline: none; /* Esto elimina el borde que aparece cuando un campo de entrada recibe foco */
-}
 
 /* Div con columnas de colores */
 .color-strip {
