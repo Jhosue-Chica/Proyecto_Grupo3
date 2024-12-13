@@ -1,10 +1,3 @@
-:root {
-  --rich-black: #0b0c10ff;
-  --golden-yellow: #ffc300ff;
-  --crimson-red: #d90429ff;
-  --royal-blue: #003f88ff;
-  --platinum: #e5e5e5ff;
-}
 
 /* Estilado del contenedor principal con la imagen de fondo */
 .lobby-container {
@@ -157,4 +150,79 @@
 
 .botones-container {
   animation: fadeInUp 1s ease-out 0.5s backwards;
+}
+
+/* Estilos para la configuración de perfil */
+.perfil-configuracion {
+  margin-bottom: 2rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  animation: fadeInUp 1s ease-out 0.3s backwards;
+}
+
+.perfil-configuracion h2 {
+  color: var(--golden-yellow);
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nombre-jugador {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--royal-blue);
+  color: var(--platinum);
+  text-align: center;
+}
+
+.nombre-jugador::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.avatares-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.avatar-item {
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-item.seleccionado {
+  border: 3px solid var(--golden-yellow);
+  box-shadow: 0 0 15px var(--golden-yellow);
+}
+
+.avatar-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255,255,255,0.2) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.avatar-item:hover::before {
+  opacity: 1;
+}
+
+/* Responsive adjustments para avatares */
+@media (max-width: 768px) {
+  .avatares-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
