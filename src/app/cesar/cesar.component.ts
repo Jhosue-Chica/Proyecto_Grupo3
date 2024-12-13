@@ -15,7 +15,7 @@ export class CesarComponent {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       codigo: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{6}$/)])
-    });    
+    });
   }
 
   get codigo() {

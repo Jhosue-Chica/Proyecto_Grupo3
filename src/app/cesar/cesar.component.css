@@ -164,3 +164,22 @@
     margin-bottom: 1rem;
   }
 }
+
+.codigo-longitud {
+  display: block;
+  /* Asegura que siempre esté visible */
+  color: var(--platinum);
+  /* Consistente con el esquema de colores */
+  font-size: 0.85rem;
+  /* Tamaño ligeramente más pequeño */
+  margin-top: 0.25rem;
+  /* Espaciado superior para separación */
+  text-align: left;
+  /* Alineado a la izquierda para mantener consistencia con los labels */
+  font-style: italic;
+  /* Añade un toque estilizado */
+  letter-spacing: 0.05rem;
+  /* Espaciado entre letras para mejorar la legibilidad */
+  opacity: 0.8;
+  /* Hace que sea un poco más tenue */
+}

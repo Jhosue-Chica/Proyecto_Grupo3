@@ -9,6 +9,7 @@
           <label for="codigo" class="form-label">Introduce el código del juego</label>
           <input id="codigo" type="text" formControlName="codigo" maxlength="6" placeholder="Ingrese el código"
             aria-describedby="codigoHelp" class="form-control" />
+          <small class="codigo-longitud">{{ form.get('codigo')?.value?.length || 0 }}/6</small>
           <div *ngIf="codigo?.invalid && (codigo?.dirty || codigo?.touched)" class="jugadores-info mt-2">
             <small *ngIf="codigo?.hasError('required')" class="text-danger">El código es obligatorio.</small>
             <small *ngIf="codigo?.hasError('pattern')" class="text-danger">Debe tener exactamente 6 caracteres
