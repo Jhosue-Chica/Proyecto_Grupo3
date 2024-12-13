@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 interface Jugador {
   id: string;
   nombre: string;
@@ -11,7 +11,7 @@ interface Jugador {
 
 @Component({
   selector: 'app-jhosue-ganadores',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './jhosue-ganadores.component.html',
   styleUrl: './jhosue-ganadores.component.css'
 })
