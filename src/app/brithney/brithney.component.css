@@ -15,21 +15,22 @@
   background-position: center;
   height: 100vh;
   z-index: 1;
+  padding-top: 3%;
 }
 
 .title-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Alinea horizontalmente */
+  justify-content: center;
   gap: 10px; /* Espacio entre el ícono y el texto */
-  margin-bottom: 20px; /* Espacio debajo del título */
+  margin-bottom: 20px;
 
 }
 .table-title {
   margin-bottom: 30px;
   text-align: center;
   color: var(--golden-yellow);
-  font-size: 2.5rem;
+  font-size: 2.5  rem;
   font-weight: bold;
   text-shadow: 0 0 10px rgba(225, 255, 0, 0.37);
 
@@ -40,38 +41,39 @@
   background-color: rgba(100, 90, 90, 0.7);
   transition: background-color 0.3s ease;
 }
-
- /* Centrado */
- .table-responsive {
+.table-responsive {
   max-width: 1000px;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0.486);
   border-radius: 10px;
   padding: 10px;
+  overflow: hidden;
+  height: auto;
 }
 
-/* Bordes y espaciado */
+/* Ajustar el tamaño de la fuente en la tabla */
 .table {
+  font-size: 13px;
   border-collapse: separate;
   border-spacing: 0;
   font-family: 'Arial', sans-serif;
-  font-size: 20px;
   border-radius: 9px;
   overflow: hidden;
 }
 
-/* Ajustar celdas */
+/* Reducir el padding de las celdas */
 .table th, .table td {
-  padding: 7px;
-  font-size: 17px;
+  padding: 5px; /* Reducir el padding de las celdas */
+  font-size: 12px; /* Reducir el tamaño de la fuente de las celdas */
 }
 
-/* Ajustar tamaño de inputs */
+/* Reducir el tamaño de los inputs */
 .table input {
   text-align: center;
-  font-size: 14px;
-  padding: 3px;
+  font-size: 12px; /* Reducir el tamaño de la fuente de los inputs */
+  padding: 2px; /* Reducir el padding de los inputs */
 }
+
 .table thead th {
   font-weight: bold;
   color: aliceblue;
@@ -127,4 +129,37 @@ th{
 
 .color-column {
   flex: 1;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #c9302c;
+}
+
+/* Ajustar el tamaño del botón */
+.btn-start-game {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  border: none;
+  padding: 0.5rem 1.5rem; /* Reducir el tamaño del botón */
+  font-size: 1rem; /* Reducir el tamaño del texto del botón */
+  font-weight: bold;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-start-game:hover {
+  background-color: var(--crimson-red);
+  color: var(--platinum);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
 }
