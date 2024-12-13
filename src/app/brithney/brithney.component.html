@@ -1,1 +1,55 @@
-<p>brithney works!</p>
+<div
+  class="background-container d-flex align-items-center justify-content-center"
+>
+  <div class="table-responsive">
+    <div class="title-container">
+      <img
+        src="https://cdn-icons-png.flaticon.com/512/2533/2533982.png"
+        width="70"
+        alt=""
+      />
+      <h2 class="table-title">Anotaciones!</h2>
+    </div>
+    <table class="table table-bordered table-hover text-center">
+      <thead>
+        <tr class="table">
+          <th></th>
+          <th
+            id="bordes"
+            *ngFor="let columna of columnas; let i = index"
+            [ngClass]="getColumnClass(i)"
+          >
+            {{ columna }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let fila of filas">
+          <td class="row-color">{{ fila.nombre }}</td>
+          <td *ngFor="let valor of fila.valores; let i = index" [ngClass]="getColumnClass(i)">
+            <input
+              type="text"
+              class="form-control text-center bg-light border"
+              [(ngModel)]="fila.valores[i]"
+              (input)="onInputChange($event, i)" 
+            />
+          </td>
+
+        </tr>
+
+        <tr>
+          <td class="table-secondary font-weight-bold">Total</td>
+          <td *ngFor="let columna of columnas; let i = index">
+            {{ getSumaColumna(i) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="color-strip">
+    <div class="color-column custom-bg-1"></div>
+    <div class="color-column custom-bg-2"></div>
+    <div class="color-column custom-bg-3"></div>
+    <div class="color-column custom-bg-4"></div>
+  </div>
+</div>
