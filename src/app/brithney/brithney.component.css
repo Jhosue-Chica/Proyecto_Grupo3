@@ -41,6 +41,19 @@
   background-color: rgba(100, 90, 90, 0.7);
   transition: background-color 0.3s ease;
 }
+/* Definir la animación de deslizamiento */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Aplicar la animación a la tabla */
 .table-responsive {
   max-width: 1000px;
   margin: 0 auto;
@@ -48,8 +61,11 @@
   border-radius: 10px;
   padding: 10px;
   overflow: hidden;
-  height: auto;
+  animation: slideIn 1s ease-out; /* La animación durará 1 segundo */
 }
+
+
+
 
 /* Ajustar el tamaño de la fuente en la tabla */
 .table {
@@ -63,15 +79,15 @@
 
 /* Reducir el padding de las celdas */
 .table th, .table td {
-  padding: 5px; /* Reducir el padding de las celdas */
-  font-size: 12px; /* Reducir el tamaño de la fuente de las celdas */
+  padding: 5px;
+  font-size: 12px;
 }
 
 /* Reducir el tamaño de los inputs */
 .table input {
   text-align: center;
-  font-size: 12px; /* Reducir el tamaño de la fuente de los inputs */
-  padding: 2px; /* Reducir el padding de los inputs */
+  font-size: 12px;
+  padding: 2px;
 }
 
 .table thead th {

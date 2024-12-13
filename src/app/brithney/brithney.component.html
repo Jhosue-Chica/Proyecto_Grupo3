@@ -1,24 +1,14 @@
-<div
-  class="background-container d-flex align-items-center justify-content-center">
-
+<div class="background-container d-flex align-items-center justify-content-center">
   <div class="table-responsive">
     <div class="title-container">
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/2533/2533982.png"
-        width="70"
-        alt=""
-      />
-
+      <img src="https://cdn-icons-png.flaticon.com/512/2533/2533982.png" width="70" alt="" />
       <h2 class="table-title">Anotaciones!</h2>
     </div>
     <table class="table table-bordered table-hover text-center">
       <thead>
         <tr class="table">
           <th></th>
-          <th
-            id="bordes"
-            *ngFor="let columna of columnas; let i = index"
-            [ngClass]="getColumnClass(i)">
+          <th id="bordes" *ngFor="let columna of columnas; let i = index" [ngClass]="getColumnClass(i)">
             {{ columna }}
           </th>
         </tr>
@@ -26,14 +16,10 @@
       <tbody>
         <tr *ngFor="let fila of filas">
           <td class="row-color">{{ fila.nombre }}</td>
-          <td
-            *ngFor="let valor of fila.valores; let i = index"
-            [ngClass]="getColumnClass(i)"
-          >
-          <input [(ngModel)]="fila.valores[i]" type="number" (keydown)="preventEnter($event)" />
-        </td>
+          <td *ngFor="let valor of fila.valores; let i = index" [ngClass]="getColumnClass(i)">
+            <input [(ngModel)]="fila.valores[i]" type="number" (keydown)="preventEnter($event)" />
+          </td>
         </tr>
-
         <tr>
           <td class="table-secondary font-weight-bold">Total</td>
           <td *ngFor="let columna of columnas; let i = index">
@@ -44,18 +30,11 @@
     </table>
   </div>
   <br>
-  <div>
-    <div class="row mt-4">
-      <div class="col-12 text-center d-flex justify-content-center gap-2">
-        <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home" routerLinkActive="active">Salir del Juego</button>
-      </div>
-    </div>
-  </div>
+  <button class="btn btn-start-game" routerLink="/tabla" routerLinkActive="active">Salir del Juego</button>
   <div class="color-strip">
     <div class="color-column custom-bg-1"></div>
     <div class="color-column custom-bg-2"></div>
     <div class="color-column custom-bg-3"></div>
     <div class="color-column custom-bg-4"></div>
   </div>
-
 </div>
