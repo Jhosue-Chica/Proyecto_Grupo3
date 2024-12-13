@@ -5,6 +5,7 @@ import { MateoCrearPartidaComponent } from './mateo-crear-partida/mateo-crear-pa
 import { JhosueComponent } from './jhosue/jhosue.component';
 import { BrithneyComponent } from './brithney/brithney.component';
 import { CesarComponent } from './cesar/cesar.component';
+import { JhosueGanadoresComponent } from './jhosue-ganadores/jhosue-ganadores.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -12,7 +13,8 @@ export const routes: Routes = [
   { path: 'crear-partida', component: MateoCrearPartidaComponent },
   { path: 'lobby', component: JhosueComponent },
   { path: 'tabla', component: BrithneyComponent },
-  { path: 'unirse-partida', component: CesarComponent }
+  { path: 'unirse-partida', component: CesarComponent },
+  { path: 'ganadores', component: JhosueGanadoresComponent },
 ];
 
 @NgModule({

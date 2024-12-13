@@ -1,0 +1,86 @@
+<div class="winners-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h1 class="winners-title">Ganadores de Telefunken</h1>
+      </div>
+    </div>
+
+    <div class="row winners-section">
+      <div class="col-12">
+        <h2 class="section-subtitle">Podio de Ganadores</h2>
+        <div class="winners-podium">
+          <div class="winner-card second-place">
+            <div class="winner-badge">2do</div>
+            <img src="/jhosue/avatares2.png" class="winner-avatar" alt="Segundo Lugar">
+            <div class="winner-info">
+              <h3>Jugador 2</h3>
+              <p>Puntaje: 350</p>
+            </div>
+          </div>
+
+          <div class="winner-card first-place">
+            <div class="winner-badge">1er</div>
+            <img src="/jhosue/avatares1.png" class="winner-avatar" alt="Primer Lugar">
+            <div class="winner-info">
+              <h3>Jugador 1</h3>
+              <p>Puntaje: 450</p>
+            </div>
+          </div>
+
+          <div class="winner-card third-place">
+            <div class="winner-badge">3er</div>
+            <img src="/jhosue/avatares3.png" class="winner-avatar" alt="Tercer Lugar">
+            <div class="winner-info">
+              <h3>Jugador 3</h3>
+              <p>Puntaje: 250</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12 text-center detailed-results">
+        <h2 class="section-subtitle">Resultados Detallados</h2>
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th>Posición</th>
+              <th>Jugador</th>
+              <th>Puntaje</th>
+              <th>Tiempo de Juego</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Jugador 1</td>
+              <td>450</td>
+              <td>45:23</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Jugador 2</td>
+              <td>350</td>
+              <td>47:56</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Jugador 3</td>
+              <td>250</td>
+              <td>52:14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12 text-center d-flex justify-content-center gap-2">
+        <button class="btn btn-play-again" routerLink="/home" routerLinkActive="active">Jugar de Nuevo</button>
+        <button class="btn btn-share-results" (click)="shareResults()">Compartir Resultados</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+/* Estilos para la pantalla de ganadores */
+.winners-container {
+  background-image: url('/jhosue/lobby-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--platinum);
+  position: relative;
+  overflow: hidden;
+
+}
+
+.winners-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(11, 12, 16, 0.8) 0%,
+    rgba(0, 63, 136, 0.6) 50%,
+    rgba(217, 4, 41, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+.winners-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+.winners-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--golden-yellow);
+  text-shadow: 0 0 10px rgba(255,215,0,0.5);
+}
+
+.winners-podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.winner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 15px;
+  padding: 1rem;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.winner-card:hover {
+  transform: scale(1.05);
+}
+
+.winner-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  padding: 0.3rem 0.7rem;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.winner-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--golden-yellow);
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.first-place {
+  height: 300px;
+  width: 200px;
+}
+
+.second-place {
+  height: 250px;
+  width: 180px;
+}
+
+.third-place {
+  height: 200px;
+  width: 160px;
+}
+
+.winner-info {
+  text-align: center;
+}
+
+.winner-info h3 {
+  color: var(--platinum);
+  margin-bottom: 0.5rem;
+}
+
+.winner-info p {
+  color: var(--royal-blue);
+  font-weight: bold;
+}
+
+.detailed-results {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.table {
+  background-color: rgba(0,0,0,0.7);
+}
+
+.btn-play-again, .btn-share-results {
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 15px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-play-again {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  border: 2px solid var(--rich-black);
+}
+
+.btn-share-results {
+  background-color: var(--royal-blue);
+  color: var(--platinum);
+  border: 2px solid var(--golden-yellow);
+}
+
+/* Animaciones */
+@keyframes podiumEntry {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.first-place {
+  animation: podiumEntry 1s ease-out;
+}
+
+.second-place {
+  animation: podiumEntry 1s ease-out 0.3s backwards;
+}
+
+.third-place {
+  animation: podiumEntry 1s ease-out 0.6s backwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .winners-podium {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .first-place, .second-place, .third-place {
+    width: 250px;
+    height: auto;
+  }
+}
