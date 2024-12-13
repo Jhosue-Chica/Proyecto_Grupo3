@@ -1,0 +1,166 @@
+:root {
+  --rich-black: #0b0c10ff;
+  --golden-yellow: #ffc300ff;
+  --crimson-red: #d90429ff;
+  --royal-blue: #003f88ff;
+  --platinum: #e5e5e5ff;
+}
+
+.unirse-partida-container {
+  background-image: url('/mateo/crear-partida-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.unirse-partida-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg,
+      rgba(11, 12, 16, 0.8) 0%,
+      rgba(0, 63, 136, 0.6) 50%,
+      rgba(217, 4, 41, 0.4) 100%);
+  z-index: 1;
+}
+
+.unirse-partida-content {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(11, 12, 16, 0.7);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.page-title {
+  color: var(--golden-yellow);
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(255, 195, 0, 0.5);
+}
+
+.partida-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  color: var(--platinum);
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.text-explaind {
+  color: #ff6347;
+}
+
+
+.form-control {
+  background-color: var(--royal-blue);
+  color: var(--platinum);
+  border: 2px solid var(--golden-yellow);
+  border-radius: 10px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: rgba(0, 63, 136, 0.8);
+  box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
+}
+
+.codigo-partida-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.codigo-partida {
+  flex-grow: 1;
+  text-align: center;
+  letter-spacing: 0.2rem;
+  font-weight: bold;
+}
+
+.btn-copy {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-copy:hover {
+  background-color: var(--crimson-red);
+  color: var(--platinum);
+  transform: scale(1.05);
+}
+
+.botones-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 15px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+  border: 2px solid var(--rich-black);
+}
+
+.btn-secondary {
+  background-color: var(--royal-blue);
+  color: var(--platinum);
+  border: 2px solid var(--golden-yellow);
+}
+
+.btn-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .unirse-partida-content {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .botones-container {
+    flex-direction: column;
+  }
+
+  .botones-container .btn {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
