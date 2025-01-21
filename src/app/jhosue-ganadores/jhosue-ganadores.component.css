@@ -4,7 +4,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,8 +12,8 @@
   text-align: center;
   color: var(--platinum);
   position: relative;
-  overflow: hidden;
-
+  overflow-x: hidden;
+  padding: 2rem 1rem;
 }
 
 .winners-container::before {
@@ -38,18 +38,20 @@
 }
 
 .winners-title {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: bold;
   color: var(--golden-yellow);
   text-shadow: 0 0 10px rgba(255,215,0,0.5);
+  margin-bottom: 1.5rem;
 }
 
 .winners-podium {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
 }
 
 .winner-card {
@@ -61,6 +63,10 @@
   padding: 1rem;
   position: relative;
   transition: transform 0.3s ease;
+  flex: 1;
+  min-width: 160px;
+  max-width: 250px;
+  margin: 1rem;
 }
 
 .winner-card:hover {
@@ -80,8 +86,8 @@
 }
 
 .winner-avatar {
-  width: 120px;
-  height: 120px;
+  width: clamp(80px, 15vw, 120px);
+  height: clamp(80px, 15vw, 120px);
   border-radius: 50%;
   border: 4px solid var(--golden-yellow);
   object-fit: cover;
@@ -122,9 +128,6 @@
   margin: 0 auto;
 }
 
-.table {
-  background-color: rgba(0,0,0,0.7);
-}
 
 .btn-play-again, .btn-share-results {
   padding: 12px 30px;
@@ -172,15 +175,160 @@
   animation: podiumEntry 1s ease-out 0.6s backwards;
 }
 
-/* Responsive adjustments */
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  .winners-podium {
+    gap: 1rem;
+  }
+
+  .detailed-results {
+    padding: 0 1rem;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 768px) {
   .winners-podium {
     flex-direction: column;
     align-items: center;
   }
 
+  .winner-card {
+    width: 100%;
+    max-width: 280px;
+    margin: 1rem 0;
+  }
+
   .first-place, .second-place, .third-place {
-    width: 250px;
     height: auto;
+    padding: 2rem 1rem;
+    width: 100%;
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .btn-play-again, .btn-share-results {
+    padding: 10px 20px;
+    font-size: 16px;
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .col-12.text-center.d-flex {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .winners-title {
+    font-size: 1.8rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.4rem;
+  }
+
+  .winner-card {
+    max-width: 240px;
+  }
+
+  .winner-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .winner-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .winner-info p {
+    font-size: 0.9rem;
+  }
+
+  .table {
+    font-size: 0.8rem;
+  }
+
+  .col-12 {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .winners-title {
+    font-size: 1.5rem;
+  }
+
+  .winner-card {
+    max-width: 200px;
+  }
+
+  .btn-play-again, .btn-share-results {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .winners-container {
+    padding: 3rem;
+  }
+
+  .winners-podium {
+    gap: 3rem;
+  }
+
+  .winner-card {
+    transform: scale(1.1);
+  }
+
+  .first-place {
+    height: 320px;
+    width: 220px;
+  }
+
+  .second-place {
+    height: 280px;
+    width: 200px;
+  }
+
+  .third-place {
+    height: 240px;
+    width: 180px;
+  }
+}
+
+/* Mejoras en la accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .winner-card {
+    transition: none;
+  }
+
+  .first-place,
+  .second-place,
+  .third-place {
+    animation: none;
+  }
+}
+
+/* Hover states para dispositivos que lo soportan */
+@media (hover: hover) {
+  .btn-play-again:hover {
+    background-color: var(--rich-black);
+    color: var(--golden-yellow);
+    transform: translateY(-2px);
+  }
+
+  .btn-share-results:hover {
+    background-color: var(--platinum);
+    color: var(--royal-blue);
+    transform: translateY(-2px);
   }
 }

@@ -35,27 +35,27 @@
       </div>
     </div>
 
-        <!-- New Room Code Section -->
-        <div class="row mt-4">
-          <div class="col-12 text-center room-code-section">
-            <h2 class="section-subtitle">Código de Sala</h2>
-            <div class="room-code-container">
-              <span class="room-code" id="roomCode">{{ roomCode }}</span>
-              <button class="btn btn-copy" (click)="copyRoomCode()">
-                <i class="bi bi-clipboard"></i> Copiar
-              </button>
-            </div>
-            <small class="copy-feedback">{{ copyMessage }}</small>
-          </div>
+    <!-- New Room Code Section -->
+    <div class="row mt-4">
+      <div class="col-12 text-center room-code-section">
+        <h2 class="section-subtitle">Código de Sala</h2>
+        <div class="room-code-container">
+          <span class="room-code" id="roomCode">{{ roomCode }}</span>
+          <button class="btn btn-copy" (click)="copyRoomCode()">
+            <i class="bi bi-clipboard"></i> Copiar
+          </button>
         </div>
+        <small class="copy-feedback">{{ copyMessage }}</small>
+      </div>
+    </div>
 
-        <div>
-          <div class="row mt-4">
-            <div class="col-12 text-center d-flex justify-content-center gap-2">
-              <button class="btn btn-start-game" routerLink="/tabla" routerLinkActive="active"  >Iniciar Juego</button>
-              <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home" routerLinkActive="active">Salir del Juego</button>
-            </div>
-          </div>
+    <div class="row mt-4">
+      <div class="row mt-4">
+        <div class="col-12 text-center d-flex justify-content-center gap-2">
+          <button class="btn btn-start-game" routerLink="/tabla" routerLinkActive="active">Iniciar Juego</button>
+          <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home"
+            routerLinkActive="active">Salir del Juego</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
