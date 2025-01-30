@@ -1,7 +1,10 @@
+// mateo-crear-partida.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { UserService, Usuario } from '../user.service';
+import { GameService, Mesa, Jugador } from '../game.service';
 
 @Component({
   selector: 'app-mateo-crear-partida',
@@ -10,19 +13,28 @@ import { RouterModule } from '@angular/router';
   templateUrl: './mateo-crear-partida.component.html',
   styleUrl: './mateo-crear-partida.component.css'
 })
-export class MateoCrearPartidaComponent {
-  // Propiedades del formulario
+export class MateoCrearPartidaComponent implements OnInit {
+  usuario: Usuario | null = null;
   numJugadores: number = 2;
   numeroBarajas: number = 2;
-  codigoCopiadoMensaje: string = '';
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
-  // Crear un EventEmitter para enviar los detalles de la partida
-  @Output() partidaCreada = new EventEmitter<{
-    numJugadores: number,
-    numeroBarajas: number
-  }>();
+  constructor(
+    private userService: UserService,
+    private gameService: GameService,
+    private router: Router
+  ) {}
 
-
+  ngOnInit() {
+    this.userService.usuario$.subscribe(usuario => {
+      if (!usuario) {
+        this.router.navigate(['/']);
+        return;
+      }
+      this.usuario = usuario;
+    });
+  }
 
   calcularNumeroBarajas(): void {
     if (this.numJugadores >= 2 && this.numJugadores <= 6) {
@@ -37,19 +49,54 @@ export class MateoCrearPartidaComponent {
     }
   }
 
+  generarCodigoPartida(): string {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const longitud = 6;
+    return Array.from(
+      { length: longitud },
+      () => caracteres.charAt(Math.floor(Math.random() * caracteres.length))
+    ).join('');
+  }
 
-  crearPartida(): void {
-    // Emitir los detalles de la partida
-    this.partidaCreada.emit({
-      numJugadores: this.numJugadores,
-      numeroBarajas: this.numeroBarajas,
-    });
+  async crearPartida(): Promise<void> {
+    if (!this.usuario) return;
 
-    console.log('Creando partida:', {
-      jugadores: this.numJugadores,
-      barajas: this.numeroBarajas,
-    });
+    this.isLoading = true;
+    this.errorMessage = '';
 
+    try {
+      const jugadorCreador: Jugador = {
+        id: `jugador_${Date.now()}`,
+        nombre: this.usuario.name,
+        avatar: this.usuario.avatar
+      };
+
+      const mesaData = {
+        cant_jugadores: this.numJugadores,
+        cant_barajas: this.numeroBarajas,
+        cod_sala: this.generarCodigoPartida(),
+        jugadorCreador
+      };
+
+      const mesa = await this.gameService.createMesa(mesaData).toPromise();
+
+      if (mesa) {
+        const detallesPartida = {
+          numJugadores: this.numJugadores,
+          numeroBarajas: this.numeroBarajas,
+          mesaId: mesa.id,
+          codigoSala: mesa.cod_sala
+        };
+
+        this.router.navigate(['/lobby'], {
+          state: { detallesPartida }
+        });
+      }
+    } catch (error) {
+      console.error('Error al crear la partida:', error);
+      this.errorMessage = 'Error al crear la partida. Por favor, intenta nuevamente.';
+    } finally {
+      this.isLoading = false;
+    }
   }
 }
-

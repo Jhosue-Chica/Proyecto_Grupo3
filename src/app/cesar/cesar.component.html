@@ -1,25 +1,51 @@
 <div>
-  <div
-    class="unirse-partida-container container-fluid d-flex flex-column justify-content-center align-items-center text-center">
+  <div class="unirse-partida-container container-fluid d-flex flex-column justify-content-center align-items-center text-center">
     <div class="unirse-partida-content">
       <h1 class="page-title mb-4">Unirse a una partida</h1>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="partida-form">
         <div class="form-group mb-4">
           <label for="codigo" class="form-label">Introduce el código del juego</label>
-          <input id="codigo" type="text" formControlName="codigo" maxlength="6" placeholder="Ingrese el código"
-            aria-describedby="codigoHelp" class="form-control" />
+          <input
+            id="codigo"
+            type="text"
+            formControlName="codigo"
+            maxlength="6"
+            placeholder="Ingrese el código"
+            aria-describedby="codigoHelp"
+            class="form-control"
+            [class.is-invalid]="codigo?.invalid && (codigo?.dirty || codigo?.touched)"
+          />
           <small class="codigo-longitud">{{ form.get('codigo')?.value?.length || 0 }}/6</small>
           <div *ngIf="codigo?.invalid && (codigo?.dirty || codigo?.touched)" class="jugadores-info mt-2">
             <small *ngIf="codigo?.hasError('required')" class="text-danger">El código es obligatorio.</small>
-            <small *ngIf="codigo?.hasError('pattern')" class="text-danger">Debe tener exactamente 6 caracteres
-              alfanuméricos.</small>
+            <small *ngIf="codigo?.hasError('pattern')" class="text-danger">Debe tener exactamente 6 caracteres alfanuméricos.</small>
           </div>
         </div>
 
+        <!-- Mensajes de error del servidor -->
+        <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+          {{ errorMessage }}
+        </div>
+
         <div class="botones-container">
-          <button type="submit" class="btn btn-primary btn-lg btn-hover" [disabled]="form.invalid" routerLink="/tabla" >Buscar Juego</button>
-          <button type=" button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home">
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg btn-hover"
+            [disabled]="form.invalid || isLoading"
+          >
+            <span *ngIf="!isLoading">Buscar Juego</span>
+            <span *ngIf="isLoading">
+              <!-- Puedes agregar un spinner aquí si lo deseas -->
+              Conectando...
+            </span>
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary btn-lg btn-hover"
+            routerLink="/home"
+            [disabled]="isLoading"
+          >
             Cancelar
           </button>
         </div>

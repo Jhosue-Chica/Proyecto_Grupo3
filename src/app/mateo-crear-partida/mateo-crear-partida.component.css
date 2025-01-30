@@ -144,6 +144,61 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Estilos para el spinner de carga */
+.loading-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loading-spinner i {
+  font-size: 1.2rem;
+}
+
+.rotating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Estilos para mensajes de error */
+.error-message {
+  color: var(--crimson-red);
+  background-color: rgba(217, 4, 41, 0.1);
+  border: 1px solid var(--crimson-red);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Estilos para botones deshabilitados */
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Efecto hover solo cuando no está deshabilitado */
+.btn:not(:disabled).btn-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para inputs deshabilitados */
+.form-control:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: rgba(0, 63, 136, 0.5);
+}
+
 /* Ajustes para pantallas muy pequeñas */
 @media (max-width: 576px) {
   .crear-partida-container {

@@ -1,39 +1,24 @@
 <div class="lobby-container container-fluid d-flex flex-column justify-content-center align-items-center text-center">
-  <!-- Imagen principal centrada con estilo moderno -->
-  <img
-    src="/mateo/Telefunken_logo.png"
-    alt="Imagen principal"
-    class="pantalla-principal-imagen img-fluid mb-4"
-  >
+  <img src="/mateo/Telefunken_logo.png" alt="Imagen principal" class="pantalla-principal-imagen img-fluid mb-4">
 
-  <!-- Sección de configuración de perfil -->
-<div class="perfil-configuracion">
-  <h2 class="mb-4">Configura tu Perfil</h2>
-  <div class="avatar-selector">
-    <input
-      type="text"
-      class="form-control nombre-jugador mb-3"
-      placeholder="Ingresa tu nombre"
-      maxlength="15"
-    >
+  <div class="perfil-configuracion" *ngIf="usuario">
+    <h2 class="mb-4">Bienvenido, {{usuario.name}}</h2>
+    <img [src]="usuario.avatar" [alt]="'Avatar ' + usuario.name" class="img-fluid mb-3"
+      style="max-width: 100px;">
   </div>
-</div>
 
-  <!-- Contenedor de botones con diseño optimizado -->
   <div class="botones-container">
-    <button
-      routerLink="/crear-partida"
-      routerLinkActive="active"
-      class="btn btn-primary btn-lg me-3 btn-hover"
-    >
+    <button class="btn btn-primary btn-lg me-3 btn-hover" (click)="crearPartida()">
       Crear Partida
     </button>
-    <button
-      routerLink="/unirse-partida"
-      routerLinkActive="active"
-      class="btn btn-secondary btn-lg btn-hover"
-    >
+    <button class="btn btn-secondary btn-lg btn-hover" (click)="unirsePartida()">
       Unirse a Partida
     </button>
   </div>
 </div>
+
+<app-jhosue-crear-usuario
+  *ngIf="showModal"
+  (close)="showModal = false"
+  (userCreated)="handleUserCreated($event)">
+</app-jhosue-crear-usuario>

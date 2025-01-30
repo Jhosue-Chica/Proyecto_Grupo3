@@ -1,3 +1,4 @@
+<!-- jhosue.component.html -->
 <div class="lobby-container">
   <div class="container">
     <div class="row">
@@ -6,42 +7,73 @@
       </div>
     </div>
 
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="row">
+      <div class="col-12">
+        <div class="alert alert-danger text-center">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+
+    <!-- sección de jugadores conectados -->
     <div class="row players-section">
       <div class="col-12">
-        <h2 class="section-subtitle">Jugadores Conectados</h2>
+        <h2 class="section-subtitle">Jugadores Conectados ({{jugadoresConectados.length}}/{{numJugadores}})</h2>
         <div class="player-list">
-          <div class="player-card">
-            <img src="/jhosue/avatares1.png" class="player-avatar" alt="Player Avatar">
-            <div class="player-info">
-              <h3>Jugador 1</h3>
-              <p>En espera...</p>
+          <ng-container *ngFor="let jugador of jugadoresConectados; let i = index">
+            <div class="player-card">
+              <img [src]="jugador.avatar || '/jhosue/avatares' + (i + 1) + '.png'"
+                   class="player-avatar"
+                   [alt]="jugador.nombre">
+              <div class="player-info">
+                <h3>{{jugador.nombre}}</h3>
+                <p>Conectado</p>
+              </div>
             </div>
+          </ng-container>
+
+          <!-- Espacios vacíos para jugadores pendientes -->
+          <ng-container *ngFor="let empty of [].constructor(numJugadores - jugadoresConectados.length); let i = index">
+            <div class="player-card empty">
+              <img src="/jhosue/avatares{{jugadoresConectados.length + i + 1}}.png"
+                   class="player-avatar"
+                   alt="Esperando jugador">
+              <div class="player-info">
+                <h3>Esperando...</h3>
+                <p>En espera</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- sección de detalles de partida -->
+    <div class="row mb-4">
+      <div class="col-12 text-center game-details">
+        <div class="details-card">
+          <div class="detail-item">
+            <i class="bi bi-people-fill"></i>
+            <h3>Jugadores</h3>
+            <p>{{ numJugadores }} jugadores</p>
           </div>
-          <div class="player-card">
-            <img src="/jhosue/avatares2.png" class="player-avatar" alt="Player Avatar">
-            <div class="player-info">
-              <h3>Jugador 2</h3>
-              <p>En espera...</p>
-            </div>
-          </div>
-          <div class="player-card">
-            <img src="/jhosue/avatares3.png" class="player-avatar" alt="Player Avatar">
-            <div class="player-info">
-              <h3>Jugador 3</h3>
-              <p>En espera...</p>
-            </div>
+          <div class="detail-item">
+            <i class="bi bi-card-text"></i>
+            <h3>Barajas</h3>
+            <p>{{ numeroBarajas }} barajas</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- New Room Code Section -->
-    <div class="row mt-4">
+    <!-- Room Code Section -->
+    <div class="row mb-4">
       <div class="col-12 text-center room-code-section">
         <h2 class="section-subtitle">Código de Sala</h2>
         <div class="room-code-container">
           <span class="room-code" id="roomCode">{{ roomCode }}</span>
-          <button class="btn btn-copy" (click)="copyRoomCode()">
+          <button class="btn btn-copy" (click)="copyRoomCode()" [disabled]="isLoading">
             <i class="bi bi-clipboard"></i> Copiar
           </button>
         </div>
@@ -49,13 +81,26 @@
       </div>
     </div>
 
-    <div class="row mt-4">
-      <div class="row mt-4">
-        <div class="col-12 text-center d-flex justify-content-center gap-2">
-          <button class="btn btn-start-game" routerLink="/tabla" routerLinkActive="active">Iniciar Juego</button>
-          <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home"
-            routerLinkActive="active">Salir del Juego</button>
-        </div>
+    <!-- Botones de acción -->
+    <div class="row mb-4">
+      <div class="col-12 text-center d-flex justify-content-center gap-2">
+        <button class="btn btn-start-game"
+                (click)="iniciarPartida()"
+                [disabled]="jugadoresConectados.length < numJugadores || isLoading">
+          <span *ngIf="!isLoading">Iniciar Juego</span>
+          <span *ngIf="isLoading" class="loading-spinner">
+            <i class="bi bi-arrow-clockwise rotating"></i>
+            Iniciando...
+          </span>
+        </button>
+        <button type="button"
+                class="btn btn-secondary btn-lg btn-hover"
+                routerLink="/home"
+                [disabled]="isLoading"
+                routerLinkActive="active">
+          Salir del Juego
+        </button>
       </div>
     </div>
   </div>
+</div>

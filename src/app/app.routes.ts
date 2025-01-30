@@ -8,7 +8,7 @@ import { JhosueGanadoresComponent } from './jhosue-ganadores/jhosue-ganadores.co
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: MateoPantallaPrincipalComponent },
+  { path: 'home', component: MateoPantallaPrincipalComponent, },
   { path: 'crear-partida', component: MateoCrearPartidaComponent },
   { path: 'lobby', component: JhosueComponent },
   { path: 'tabla', component: BrithneyComponent },
