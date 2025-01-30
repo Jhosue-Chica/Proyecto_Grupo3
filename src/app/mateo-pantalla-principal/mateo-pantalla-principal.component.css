@@ -150,6 +150,7 @@
 
 .botones-container {
   animation: fadeInUp 1s ease-out 0.5s backwards;
+  margin-left: 15px;
 }
 
 /* Estilos para la configuración de perfil */
@@ -164,10 +165,13 @@
 }
 
 .perfil-configuracion h2 {
+  white-space: nowrap;
   color: var(--golden-yellow);
   margin-bottom: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nombre-jugador {
