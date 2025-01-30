@@ -42,10 +42,21 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+  justify-items: center;
+  position: relative;
   margin: 1rem 0;
+  margin-left: -20px;
+  overflow: auto;
+}
+
+.img-fluid {
+  margin-left: 10px;
+  width: 100%;
+  border-radius: 100%;
 }
 
 .avatar-item {
+  width: 75%;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 10px;
@@ -55,7 +66,7 @@
 
 .avatar-item.seleccionado {
   border-color: var(--golden-yellow, #FFD700);
-  box-shadow: 0 0 15px var(--golden-yellow, #FFD700);
+  box-shadow: 0 0px 5px var(--golden-yellow, #FFD700);
 }
 
 .nombre-jugador {
@@ -96,7 +107,17 @@
   }
 
   .avatares-grid {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
+    justify-items: center;
+    position: relative;
+    margin-left: 0px;
+  }
+
+  .img-fluid {
+    margin-left: 12.5px;
+    width: 80%;
+    border-radius: 100%;
   }
 }

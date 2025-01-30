@@ -24,7 +24,7 @@
     "@capacitor/geolocation": "^6.1.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "fire": "^0.55.1",
+    "fire": "^0.46.4",
     "proyecto-grupo3": "file:",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
