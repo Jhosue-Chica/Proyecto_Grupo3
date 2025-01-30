@@ -1,11 +1,11 @@
 <div class="modal-backdrop" (click)="closeModal()"></div>
 <div class="modal-content">
-  <div class="modal-header d-flex justify-content-center">
-    <h2>Crear Usuario</h2>
+  <div class="modal-header d-flex flex-column align-items-center w-100">
+    <h2 class="text-center">Crear Usuario</h2>
     <button type="button" class="btn-close" (click)="closeModal()"></button>
   </div>
   <div class="modal-body">
-    <div class="mb-3">
+    <div class="mb-3 d-flex justify-content-center">
       <input type="text" class="form-control nombre-jugador text-center" [(ngModel)]="userName" placeholder="Ingresa tu nombre"
         required>
     </div>
