@@ -67,7 +67,7 @@
 }
 
 .text-explaind {
-  color: #ff6347;
+  color: #e76b55;
 }
 
 
@@ -83,6 +83,11 @@
 .form-control:focus {
   background-color: rgba(0, 63, 136, 0.8);
   box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
+}
+
+.form-control::placeholder {
+  color: var(--platinum);
+  opacity: 0.8; /* Ajusta la opacidad si es necesario */
 }
 
 .codigo-partida-container {

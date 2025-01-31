@@ -1,4 +1,3 @@
-// mateo-crear-partida.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +14,7 @@ import { GameService, Mesa, Jugador } from '../game.service';
 })
 export class MateoCrearPartidaComponent implements OnInit {
   usuario: Usuario | null = null;
-  numJugadores: number = 2;
+  numJugadores: number | null = null;
   numeroBarajas: number = 2;
   isLoading: boolean = false;
   errorMessage: string = '';
@@ -24,7 +23,7 @@ export class MateoCrearPartidaComponent implements OnInit {
     private userService: UserService,
     private gameService: GameService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.userService.usuario$.subscribe(usuario => {
@@ -36,18 +35,36 @@ export class MateoCrearPartidaComponent implements OnInit {
     });
   }
 
-  calcularNumeroBarajas(): void {
-    if (this.numJugadores >= 2 && this.numJugadores <= 6) {
-      this.numeroBarajas = 2;
-    } else if (this.numJugadores >= 7 && this.numJugadores <= 11) {
-      this.numeroBarajas = 3;
-    } else if (this.numJugadores >= 12 && this.numJugadores <= 18) {
-      this.numeroBarajas = 4;
-    } else {
-      this.numJugadores = 2;
-      this.numeroBarajas = 2;
+  /**
+   * Validación numero jugadores
+   */
+  validarEntrada(event: KeyboardEvent): void {
+    const charCode = event.key;
+    const valorActual = this.numJugadores?.toString() || '';
+  
+    // Evitar que se escriba más de un dígito
+    if (valorActual.length >= 1) {
+      event.preventDefault();
+      return;
+    }
+  
+    // Permitir solo números entre 2 y 6
+    if (!['2', '3', '4', '5', '6'].includes(charCode)) {
+      event.preventDefault();
     }
   }
+  
+  validarRango(): void {
+    if (this.numJugadores !== null && (this.numJugadores < 2 || this.numJugadores > 6)) {
+      this.numJugadores = null;
+    }
+  }
+
+  calcularNumeroBarajas(): void {
+    if (this.numJugadores !== null && this.numJugadores >= 2 && this.numJugadores <= 6) {
+      this.numeroBarajas = 2;
+    }
+  }  
 
   generarCodigoPartida(): string {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -71,8 +88,10 @@ export class MateoCrearPartidaComponent implements OnInit {
         avatar: this.usuario.avatar
       };
 
+      const jugadores = this.numJugadores ?? 2; // Usa 2 si es null
+
       const mesaData = {
-        cant_jugadores: this.numJugadores,
+        cant_jugadores: jugadores,
         cant_barajas: this.numeroBarajas,
         cod_sala: this.generarCodigoPartida(),
         jugadorCreador
@@ -82,7 +101,7 @@ export class MateoCrearPartidaComponent implements OnInit {
 
       if (mesa) {
         const detallesPartida = {
-          numJugadores: this.numJugadores,
+          numJugadores: jugadores,
           numeroBarajas: this.numeroBarajas,
           mesaId: mesa.id,
           codigoSala: mesa.cod_sala
