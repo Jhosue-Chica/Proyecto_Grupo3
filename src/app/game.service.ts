@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
 // Interfaces
@@ -12,11 +12,11 @@ export interface Mesa {
   estado?: 'en_espera' | 'en_curso' | 'finalizada';
   fecha_creacion?: any;
   ultima_actualizacion?: any;
+  creador_id: string; // Add this field to track the creator
   jugadores: {
-    [key: string]: Jugador; // Jugadores como un mapa (objeto)
+    [key: string]: Jugador;
   };
 }
-
 export interface Jugador {
   id: string;
   nombre: string;
@@ -31,13 +31,15 @@ interface CreateMesaRequest {
 }
 
 export interface Ronda {
-  valores: string[];
-  puntuacion: number;
+  valor: string;
+  completada: boolean;
 }
 
 export interface JugadorPartida {
   nombre: string;
-  puntuacion_total: number;
+  posicion: number;
+  puntuacion_total: number | null;
+  rondas_completadas: number;
   rondas: {
     [key: string]: Ronda;
   };
@@ -45,9 +47,11 @@ export interface JugadorPartida {
 
 export interface Partida {
   id?: string;
-  id_mesa: string;
+  id_mesa: any;
   fecha_creacion?: any;
-  estado: string;
+  estado: 'en_curso' | 'finalizada';
+  num_jugadores: number;
+  ronda_actual: string;
   jugadores: {
     [key: string]: JugadorPartida;
   };
@@ -71,6 +75,34 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
+  // Añadimos BehaviorSubjects para mantener el estado
+  private mesaActualSource = new BehaviorSubject<Mesa | null>(null);
+  private partidaActualSource = new BehaviorSubject<Partida | null>(null);
+
+  // Observables públicos
+  mesaActual$ = this.mesaActualSource.asObservable();
+  partidaActual$ = this.partidaActualSource.asObservable();
+
+
+  // Método para establecer la mesa actual
+  setMesaActual(mesa: Mesa) {
+    this.mesaActualSource.next(mesa);
+  }
+
+  // Método para establecer la partida actual
+  setPartidaActual(partida: Partida) {
+    this.partidaActualSource.next(partida);
+  }
+
+  // Método para obtener el valor actual de la mesa
+  getMesaActual(): Mesa | null {
+    return this.mesaActualSource.getValue();
+  }
+
+  // Método para obtener el valor actual de la partida
+  getPartidaActual(): Partida | null {
+    return this.partidaActualSource.getValue();
+  }
   // Servicios para Mesas
   getMesas(): Observable<Mesa[]> {
     return this.http.get<Mesa[]>(`${this.apiUrl}/mesas`);
@@ -101,8 +133,11 @@ export class GameService {
     return this.http.get<Partida>(`${this.apiUrl}/partidas/${partidaId}`);
   }
 
-  createPartida(partida: Partial<Partida>): Observable<any> {
-    return this.http.post(`${this.apiUrl}/partidas`, partida);
+  createPartida(partida: {
+    id_mesa: string,
+    jugadores: { id: string, nombre: string }[]
+  }): Observable<Partida> {
+    return this.http.post<Partida>(`${this.apiUrl}/partidas`, partida);
   }
 
   updatePartidaRonda(
@@ -110,8 +145,7 @@ export class GameService {
     data: {
       jugador_id: string;
       ronda: string;
-      valores: string[];
-      puntuacion: number;
+      valor: string;
     }
   ): Observable<any> {
     return this.http.patch(`${this.apiUrl}/partidas/${partidaId}/ronda`, data);

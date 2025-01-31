@@ -19,16 +19,19 @@
     <!-- sección de jugadores conectados -->
     <div class="row players-section">
       <div class="col-12">
-        <h2 class="section-subtitle">Jugadores Conectados ({{jugadoresConectados.length}}/{{numJugadores}})</h2>
+        <h2 class="section-subtitle">
+          Jugadores Conectados ({{jugadoresConectados.length}}/{{numJugadores}})
+          <small class="text-muted">(2-6 jugadores)</small>
+        </h2>
         <div class="player-list">
           <ng-container *ngFor="let jugador of jugadoresConectados; let i = index">
             <div class="player-card">
-              <img [src]="jugador.avatar || '/jhosue/avatares' + (i + 1) + '.png'"
-                   class="player-avatar"
-                   [alt]="jugador.nombre">
+              <img [src]="jugador.avatar || '/jhosue/avatares' + (i + 1) + '.png'" class="player-avatar"
+                [alt]="jugador.nombre">
               <div class="player-info">
                 <h3>{{jugador.nombre}}</h3>
-                <p>Conectado</p>
+                <p class="player-status">Conectado</p>
+                <p class="player-position">Jugador {{i + 1}}</p>
               </div>
             </div>
           </ng-container>
@@ -36,12 +39,12 @@
           <!-- Espacios vacíos para jugadores pendientes -->
           <ng-container *ngFor="let empty of [].constructor(numJugadores - jugadoresConectados.length); let i = index">
             <div class="player-card empty">
-              <img src="/jhosue/avatares{{jugadoresConectados.length + i + 1}}.png"
-                   class="player-avatar"
-                   alt="Esperando jugador">
+              <img src="/jhosue/avatares{{jugadoresConectados.length + i + 1}}.png" class="player-avatar"
+                alt="Esperando jugador">
               <div class="player-info">
                 <h3>Esperando...</h3>
-                <p>En espera</p>
+                <p class="player-status">En espera</p>
+                <p class="player-position">Jugador {{jugadoresConectados.length + i + 1}}</p>
               </div>
             </div>
           </ng-container>
@@ -57,11 +60,13 @@
             <i class="bi bi-people-fill"></i>
             <h3>Jugadores</h3>
             <p>{{ numJugadores }} jugadores</p>
+            <small class="text-muted">Mínimo 2, máximo 6</small>
           </div>
           <div class="detail-item">
             <i class="bi bi-card-text"></i>
             <h3>Barajas</h3>
-            <p>{{ numeroBarajas }} barajas</p>
+            <p>2 barajas</p>
+            <small class="text-muted">Cantidad fija para el juego</small>
           </div>
         </div>
       </div>
@@ -78,26 +83,26 @@
           </button>
         </div>
         <small class="copy-feedback">{{ copyMessage }}</small>
+        <p class="text-muted mt-2">Comparte este código con los demás jugadores</p>
       </div>
     </div>
 
     <!-- Botones de acción -->
     <div class="row mb-4">
       <div class="col-12 text-center d-flex justify-content-center gap-2">
-        <button class="btn btn-start-game"
-                (click)="iniciarPartida()"
-                [disabled]="jugadoresConectados.length < numJugadores || isLoading">
+        <!-- Botón de Iniciar Juego (solo visible si esCreador es true) -->
+        <button *ngIf="esCreador" class="btn btn-start-game" (click)="iniciarPartida()"
+          [disabled]="jugadoresConectados.length < 2 || jugadoresConectados.length > 6 || isLoading">
           <span *ngIf="!isLoading">Iniciar Juego</span>
           <span *ngIf="isLoading" class="loading-spinner">
             <i class="bi bi-arrow-clockwise rotating"></i>
             Iniciando...
           </span>
         </button>
-        <button type="button"
-                class="btn btn-secondary btn-lg btn-hover"
-                routerLink="/home"
-                [disabled]="isLoading"
-                routerLinkActive="active">
+
+        <!-- Botón de Salir del Juego (siempre visible) -->
+        <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home" [disabled]="isLoading"
+          routerLinkActive="active">
           Salir del Juego
         </button>
       </div>

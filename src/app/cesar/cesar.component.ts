@@ -32,7 +32,13 @@ export class CesarComponent implements OnInit {
     });
   }
 
-  // Getter para acceder fácilmente al control del formulario
+  private generarJugadorId(nombre: string): string {
+    const timestamp = Date.now();
+    const nombreLimpio = nombre.toLowerCase().replace(/\s+/g, '_');
+    const randomStr = Math.random().toString(36).substring(2, 5);
+    return `jugador_${nombreLimpio}_${timestamp}_${randomStr}`;
+  }
+
   get codigo() {
     return this.form.get('codigo');
   }
@@ -54,7 +60,6 @@ export class CesarComponent implements OnInit {
       const codigo = this.form.value.codigo;
 
       try {
-        // Buscar la mesa por código
         const mesas = await this.gameService.getMesas().toPromise();
         const mesa = mesas?.find(m => m.cod_sala === codigo);
 
@@ -68,14 +73,20 @@ export class CesarComponent implements OnInit {
           return;
         }
 
-        // Crear objeto jugador
+        const jugadorExistente = Object.values(mesa.jugadores)
+          .find(j => j.nombre === this.usuario?.name);
+
+        if (jugadorExistente) {
+          this.errorMessage = 'Ya estás en esta sala';
+          return;
+        }
+
         const jugador = {
-          id: this.usuario.name, // Usando el nombre como ID (deberías usar un ID único real)
+          id: this.generarJugadorId(this.usuario.name),
           nombre: this.usuario.name,
           avatar: this.usuario.avatar
         };
 
-        // Actualizar la mesa con el nuevo jugador
         const mesaActualizada = await this.gameService.updateMesa(mesa.id!, {
           jugadores: {
             ...mesa.jugadores,
@@ -84,18 +95,20 @@ export class CesarComponent implements OnInit {
         }).toPromise();
 
         if (mesaActualizada) {
-          // Conectar al WebSocket y unirse a la mesa
+          this.gameService.setMesaActual(mesaActualizada);
+
           this.websocketService.connectToMesa(mesa.id!);
           this.websocketService.joinMesa(mesa.id!, jugador);
 
-          // Navegar al componente Jhosue
+          // Navegar al lobby con el flag esCreador en false
           this.router.navigate(['/lobby'], {
             state: {
               detallesPartida: {
                 mesaId: mesa.id,
                 numJugadores: mesa.cant_jugadores,
                 numeroBarajas: mesa.cant_barajas,
-                codigoSala: mesa.cod_sala
+                codigoSala: mesa.cod_sala,
+                esCreador: false  // Añadido el flag de creador en false
               }
             }
           });

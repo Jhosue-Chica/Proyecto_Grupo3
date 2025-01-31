@@ -8,13 +8,15 @@
       <!-- Número de Jugadores -->
       <div class="form-group mb-4">
         <label for="numJugadores" class="form-label">Número de Jugadores</label>
-        <input type="number" id="numJugadores" name="numJugadores" class="form-control text-center"
-          [(ngModel)]="numJugadores" (keypress)="validarEntrada($event)" (input)="validarRango()" min="2" max="6"
-          required [disabled]="isLoading" placeholder="Ingrese un número">
+        <input type="number" id="numJugadores" name="numJugadores" class="form-control text-center" [(ngModel)]="numJugadores"
+          (change)="calcularNumeroBarajas()" min="2" max="18" required [disabled]="isLoading">
         <div class="jugadores-info mt-2">
-          <small *ngIf="numJugadores !== null && numJugadores < 2" class="text-danger">Mínimo 2 jugadores</small>
-          <small *ngIf="numJugadores !== null && numJugadores > 6" class="text-danger">Máximo 6 jugadores</small>
-
+          <small *ngIf="numJugadores < 2" class="text-danger">
+            Mínimo 2 jugadores
+          </small>
+          <small *ngIf="numJugadores > 18" class="text-danger">
+            Máximo 18 jugadores
+          </small>
         </div>
       </div>
 

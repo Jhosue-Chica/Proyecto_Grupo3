@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { environment } from '../environments/environment';
 import { Mesa, Jugador } from './game.service';
 import { retryWhen, delayWhen } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,20 +12,21 @@ import { retryWhen, delayWhen } from 'rxjs/operators';
 export class WebsocketService {
   private socket: WebSocket | null = null;
   private mesaSubject = new BehaviorSubject<Mesa | null>(null);
+  private tableUpdateSubject = new BehaviorSubject<any>(null); // Para actualizaciones de la tabla
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
   private wsUrl = environment.wsUrl;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   connectToMesa(mesaId: string) {
     if (this.socket) {
       this.socket.close();
     }
-
     this.initializeWebSocket(mesaId);
   }
 
+  // Inicializar la conexión WebSocket
   private initializeWebSocket(mesaId: string) {
     try {
       this.socket = new WebSocket(`${this.wsUrl}/mesa/${mesaId}`);
@@ -38,7 +40,17 @@ export class WebsocketService {
         try {
           const data = JSON.parse(event.data);
           if (data.type === 'mesa_update') {
-            this.mesaSubject.next(data.mesa);
+            this.mesaSubject.next(data.mesa); // Actualizar la mesa
+          } else if (data.type === 'game_started') {
+            // Redirigir a la tabla cuando el juego comience
+            this.router.navigate(['/tabla'], {
+              state: {
+                mesaId: data.mesaId
+              }
+            });
+          } else if (data.type === 'table_updated') {
+            // Notificar actualización de la tabla
+            this.tableUpdateSubject.next(data);
           }
         } catch (error) {
           console.error('Error al procesar mensaje del WebSocket:', error);
@@ -60,6 +72,7 @@ export class WebsocketService {
     }
   }
 
+  // Intentar reconexión
   private attemptReconnection(mesaId: string) {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
@@ -74,6 +87,37 @@ export class WebsocketService {
       console.error('Máximo número de intentos de reconexión alcanzado');
       this.mesaSubject.next(null);
     }
+  }
+
+
+  sendStartGame(mesaId: string) {
+    if (this.socket?.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify({
+        type: 'start_game',
+        mesaId: mesaId
+      }));
+    } else {
+      console.warn('WebSocket no está conectado, no se puede enviar el evento de inicio de partida.');
+    }
+  }
+
+  // Enviar actualización de la tabla
+  sendTableUpdate(mesaId: string, rowIndex: number, colIndex: number, value: string) {
+    if (this.socket?.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify({
+        type: 'table_update',
+        mesaId: mesaId,
+        rowIndex: rowIndex,
+        colIndex: colIndex,
+        value: value
+      }));
+    } else {
+      console.warn('WebSocket no está conectado, no se puede enviar la actualización de la tabla.');
+    }
+  }
+
+  getTableUpdates(): Observable<any> {
+    return this.tableUpdateSubject.asObservable();
   }
 
   getMesaUpdates(): Observable<Mesa | null> {
@@ -101,4 +145,5 @@ export class WebsocketService {
     }
     this.mesaSubject.next(null);
   }
+
 }
