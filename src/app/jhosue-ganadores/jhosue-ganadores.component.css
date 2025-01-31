@@ -111,6 +111,8 @@
 
 .winner-info {
   text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .winner-info h3 {
@@ -175,7 +177,8 @@
   animation: podiumEntry 1s ease-out 0.6s backwards;
 }
 
-/* Estilos responsivos */
+/* ----------------------Estilos responsivos----------------------------- */
+/* Pantallas grandes */
 @media (max-width: 1024px) {
   .winners-podium {
     gap: 1rem;
@@ -189,7 +192,7 @@
     font-size: 0.9rem;
   }
 }
-
+/* ancho de la pantalla es igual o menor a 768px */
 @media (max-width: 768px) {
   .winners-podium {
     flex-direction: column;
@@ -226,6 +229,7 @@
   }
 }
 
+/* Pantallas medianas */
 @media (max-width: 480px) {
   .winners-title {
     font-size: 1.8rem;
@@ -330,5 +334,29 @@
     background-color: var(--platinum);
     color: var(--royal-blue);
     transform: translateY(-2px);
+  }
+}
+
+
+
+.table-container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.table {
+  width: auto !important;
+  max-width: 100%;
+  margin: 0 auto !important;
+}
+
+/* Se aplica en pantallas grandes */
+@media (min-width: 1200px) {
+  .table {
+    width: 70% !important;
+    font-size: 1.2rem; /* Agranda el texto si es necesario */
   }
 }
