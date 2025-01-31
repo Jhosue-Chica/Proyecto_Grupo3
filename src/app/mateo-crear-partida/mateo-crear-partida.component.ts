@@ -37,13 +37,32 @@ export class MateoCrearPartidaComponent implements OnInit {
     });
   }
 
-  calcularNumeroBarajas(): void {
-    if (this.numJugadores < 2) {
-      this.numJugadores = 2;
-    } else if (this.numJugadores > 6) {
-      this.numJugadores = 6;
+  validarEntrada(event: KeyboardEvent): void {
+    const charCode = event.key;
+    const valorActual = this.numJugadores?.toString() || '';
+
+    // Evitar que se escriba más de un dígito
+    if (valorActual.length >= 1) {
+      event.preventDefault();
+      return;
     }
-    this.numeroBarajas = 2;
+
+    // Permitir solo números entre 2 y 6
+    if (!['2', '3', '4', '5', '6'].includes(charCode)) {
+      event.preventDefault();
+    }
+  }
+
+  validarRango(): void {
+    if (this.numJugadores !== null && (this.numJugadores < 2 || this.numJugadores > 6)) {
+      this.numJugadores = 2;
+    }
+  }
+
+  calcularNumeroBarajas(): void {
+    if (this.numJugadores !== null && this.numJugadores >= 2 && this.numJugadores <= 6) {
+      this.numeroBarajas = 2;
+    }
   }
 
   generarCodigoPartida(): string {
