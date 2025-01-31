@@ -67,7 +67,7 @@
 }
 
 .text-explaind {
-  color: #ff6347;
+  color: #e76b55;
 }
 
 
@@ -83,6 +83,11 @@
 .form-control:focus {
   background-color: rgba(0, 63, 136, 0.8);
   box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
+}
+
+.form-control::placeholder {
+  color: var(--platinum);
+  opacity: 0.8; /* Ajusta la opacidad si es necesario */
 }
 
 .codigo-partida-container {
@@ -144,23 +149,122 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .crear-partida-content {
-    width: 90%;
+/* Estilos para el spinner de carga */
+.loading-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.loading-spinner i {
+  font-size: 1.2rem;
+}
+
+.rotating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Estilos para mensajes de error */
+.error-message {
+  color: var(--crimson-red);
+  background-color: rgba(217, 4, 41, 0.1);
+  border: 1px solid var(--crimson-red);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Estilos para botones deshabilitados */
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Efecto hover solo cuando no está deshabilitado */
+.btn:not(:disabled).btn-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para inputs deshabilitados */
+.form-control:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: rgba(0, 63, 136, 0.5);
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 576px) {
+  .crear-partida-container {
     padding: 1rem;
   }
 
+  .crear-partida-content {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
   .page-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+
+  .text-explaind {
+    font-size: 0.8rem;
   }
 
   .botones-container {
     flex-direction: column;
+    gap: 0.75rem;
   }
 
   .botones-container .btn {
     width: 100%;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Escalado general para fuentes */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 13px;
   }
 }

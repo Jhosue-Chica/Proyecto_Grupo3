@@ -150,6 +150,7 @@
 
 .botones-container {
   animation: fadeInUp 1s ease-out 0.5s backwards;
+  margin-left: 15px;
 }
 
 /* Estilos para la configuración de perfil */
@@ -164,10 +165,13 @@
 }
 
 .perfil-configuracion h2 {
+  white-space: nowrap;
   color: var(--golden-yellow);
   margin-bottom: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nombre-jugador {
@@ -220,9 +224,64 @@
   opacity: 1;
 }
 
-/* Responsive adjustments para avatares */
-@media (max-width: 768px) {
+/* Ajustes adicionales para pantallas pequeñas */
+@media (max-width: 576px) {
+  .lobby-container {
+    padding: 1rem;
+  }
+
+  .pantalla-principal-imagen {
+    max-width: 200px;
+    width: 70%;
+  }
+
+  .perfil-configuracion {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .perfil-configuracion h2 {
+    font-size: 1.2rem;
+  }
+
+  .nombre-jugador {
+    font-size: 0.9rem;
+  }
+
+  .botones-container .btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
   .avatares-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .avatar-item {
+    border-radius: 8px;
+  }
+}
+
+/* Ajustes generales para que los textos escalen de manera proporcional */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 13px;
   }
 }

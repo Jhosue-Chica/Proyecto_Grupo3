@@ -11,21 +11,19 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  padding: clamp(1rem, 5vw, 2rem);
 }
 
 .unirse-partida-container::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(45deg,
       rgba(11, 12, 16, 0.8) 0%,
       rgba(0, 63, 136, 0.6) 50%,
@@ -36,101 +34,114 @@
 .unirse-partida-content {
   position: relative;
   z-index: 2;
-  background-color: rgba(11, 12, 16, 0.7);
-  border-radius: 20px;
-  padding: 2rem;
-  width: 100%;
-  max-width: 500px;
+  background-color: rgba(11, 12, 16, 0.85);
+  border-radius: clamp(15px, 3vw, 20px);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  width: min(95%, 500px);
+  margin: 0 auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .page-title {
   color: var(--golden-yellow);
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
   text-shadow: 0 0 10px rgba(255, 195, 0, 0.5);
+  line-height: 1.2;
 }
 
 .partida-form {
   display: flex;
   flex-direction: column;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  width: 100%;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
 }
 
 .form-label {
   color: var(--platinum);
   margin-bottom: 0.5rem;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  display: block;
 }
-
-.text-explaind {
-  color: #ff6347;
-}
-
 
 .form-control {
-  background-color: var(--royal-blue);
+  background-color: rgba(0, 63, 136, 0.6);
   color: var(--platinum);
   border: 2px solid var(--golden-yellow);
   border-radius: 10px;
-  padding: 0.75rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem);
+  width: 100%;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   transition: all 0.3s ease;
 }
 
 .form-control:focus {
   background-color: rgba(0, 63, 136, 0.8);
-  box-shadow: 0 0 10px rgba(255, 195, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 195, 0, 0.3);
+  outline: none;
 }
 
-.codigo-partida-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.form-control::placeholder {
+  color: rgba(229, 229, 229, 0.6);
 }
 
-.codigo-partida {
-  flex-grow: 1;
-  text-align: center;
-  letter-spacing: 0.2rem;
-  font-weight: bold;
-}
-
-.btn-copy {
-  background-color: var(--golden-yellow);
-  color: var(--rich-black);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-}
-
-.btn-copy:hover {
-  background-color: var(--crimson-red);
+.codigo-longitud {
+  display: block;
   color: var(--platinum);
-  transform: scale(1.05);
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+  margin-top: 0.25rem;
+  text-align: right;
+  font-style: italic;
+  letter-spacing: 0.05rem;
+  opacity: 0.8;
+}
+
+.text-danger {
+  color: var(--crimson-red);
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+  margin-top: 0.5rem;
+  display: block;
 }
 
 .botones-container {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
+  margin-top: clamp(1rem, 3vw, 1.5rem);
+  width: 100%;
 }
 
-.btn-primary,
-.btn-secondary {
-  padding: 0.75rem 1.5rem;
+.btn {
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
   border-radius: 15px;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   transition: all 0.3s ease;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 200px;
 }
 
 .btn-primary {
   background-color: var(--golden-yellow);
   color: var(--rich-black);
-  border: 2px solid var(--rich-black);
+  border: 2px solid transparent;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--crimson-red);
+  color: var(--platinum);
+  transform: translateY(-3px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .btn-secondary {
@@ -139,47 +150,44 @@
   border: 2px solid var(--golden-yellow);
 }
 
+.btn-secondary:hover {
+  background-color: var(--platinum);
+  color: var(--royal-blue);
+  transform: translateY(-3px);
+}
+
 .btn-hover:hover {
-  transform: scale(1.05);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .unirse-partida-content {
-    width: 90%;
-    padding: 1rem;
-  }
-
-  .page-title {
-    font-size: 2rem;
-  }
-
+/* Media queries */
+@media (max-width: 480px) {
   .botones-container {
     flex-direction: column;
+    align-items: center;
   }
 
-  .botones-container .btn {
-    width: 100%;
+  .btn {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .unirse-partida-content {
+    padding: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .form-group {
     margin-bottom: 1rem;
   }
 }
 
-.codigo-longitud {
-  display: block;
-  /* Asegura que siempre esté visible */
-  color: var(--platinum);
-  /* Consistente con el esquema de colores */
-  font-size: 0.85rem;
-  /* Tamaño ligeramente más pequeño */
-  margin-top: 0.25rem;
-  /* Espaciado superior para separación */
-  text-align: left;
-  /* Alineado a la izquierda para mantener consistencia con los labels */
-  font-style: italic;
-  /* Añade un toque estilizado */
-  letter-spacing: 0.05rem;
-  /* Espaciado entre letras para mejorar la legibilidad */
-  opacity: 0.8;
-  /* Hace que sea un poco más tenue */
+@media (min-width: 769px) {
+  .btn {
+    min-width: 150px;
+  }
+
+  .form-control {
+    font-size: 1rem;
+  }
 }

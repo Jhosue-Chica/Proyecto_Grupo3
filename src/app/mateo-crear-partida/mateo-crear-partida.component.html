@@ -1,3 +1,4 @@
+<!-- mateo-crear-partida.component.html -->
 <div
   class="crear-partida-container container-fluid d-flex flex-column justify-content-center align-items-center text-center">
   <div class="crear-partida-content">
@@ -7,33 +8,40 @@
       <!-- Número de Jugadores -->
       <div class="form-group mb-4">
         <label for="numJugadores" class="form-label">Número de Jugadores</label>
-        <input type="number" id="numJugadores" name="numJugadores" class="form-control" [(ngModel)]="numJugadores"
-          (change)="calcularNumeroBarajas()" min="2" max="18" required>
+        <input type="number" id="numJugadores" name="numJugadores" class="form-control text-center"
+          [(ngModel)]="numJugadores" (keypress)="validarEntrada($event)" (input)="validarRango()" min="2" max="6"
+          required [disabled]="isLoading" placeholder="Ingrese un número">
         <div class="jugadores-info mt-2">
-          <small *ngIf="numJugadores < 2" class="text-danger">
-            Mínimo 2 jugadores
-          </small>
-          <small *ngIf="numJugadores > 18" class="text-danger">
-            Máximo 18 jugadores
-          </small>
+          <small *ngIf="numJugadores !== null && numJugadores < 2" class="text-danger">Mínimo 2 jugadores</small>
+          <small *ngIf="numJugadores !== null && numJugadores > 6" class="text-danger">Máximo 6 jugadores</small>
         </div>
       </div>
 
       <!-- Número de Barajas (Automático) -->
       <div class="form-group mb-4">
         <label class="form-label">Número de Barajas</label>
-        <input type="text" class="form-control" [value]="numeroBarajas" readonly>
+        <input type="text" class="form-control text-center" [value]="numeroBarajas" readonly>
         <small class="text-explaind">
           Calculado automáticamente según número de jugadores
         </small>
       </div>
 
+      <!-- Mensaje de Error -->
+      <div *ngIf="errorMessage" class="error-message mb-3">
+        {{ errorMessage }}
+      </div>
+
       <!-- Botones de Acción -->
       <div class="botones-container">
-        <button type="submit" class="btn btn-primary btn-lg btn-hover" (click)="crearPartida()" [disabled]="!partidaForm.form.valid" routerLink="/lobby">
-          Crear Partida
+        <button type="submit" class="btn btn-primary btn-lg btn-hover" (click)="crearPartida()"
+          [disabled]="!partidaForm.form.valid || isLoading">
+          <span *ngIf="!isLoading">Crear Partida</span>
+          <span *ngIf="isLoading" class="loading-spinner">
+            <i class="bi bi-arrow-clockwise rotating"></i>
+            Creando...
+          </span>
         </button>
-        <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home">
+        <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home" [disabled]="isLoading">
           Cancelar
         </button>
       </div>

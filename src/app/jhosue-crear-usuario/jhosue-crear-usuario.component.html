@@ -1,0 +1,25 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-content">
+  <div class="modal-header d-flex flex-column align-items-center w-100">
+    <h2 class="text-center">Crear Usuario</h2>
+    <button type="button" class="btn-close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3 d-flex justify-content-center">
+      <input type="text" class="form-control nombre-jugador text-center" [(ngModel)]="userName" placeholder="Ingresa tu nombre"
+        required>
+    </div>
+
+    <div class="avatares-grid">
+      <div *ngFor="let avatar of avatares" class="avatar-item" [class.seleccionado]="selectedAvatar === avatar"
+        (click)="selectAvatar(avatar)">
+        <img [src]="'/jhosue/avatares' + avatar + '.png'" [alt]="'Avatar ' + avatar" class="img-fluid">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-hover" (click)="guardarUsuario()" [disabled]="!isValid">
+      Guardar
+    </button>
+  </div>
+</div>

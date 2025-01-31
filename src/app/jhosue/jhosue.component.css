@@ -1,138 +1,115 @@
-/* Color Variables */
+/* Variables de color */
+:root {
+  --golden-yellow: #FFD700;
+  --platinum: #E5E5E5;
+  --royal-blue: #1E3D59;
+  --rich-black: #0B0C10;
+  --crimson-red: #DC143C;
+}
 
-
-/* Lobby Container Styles with Background Image */
+/* Estilos del contenedor principal */
 .lobby-container {
   background-image: url('/jhosue/lobby-background.jpg');
-  background-size: cover; /* Covers entire container */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents image from repeating */
-
-  /* Optional: Add a semi-transparent overlay for better readability */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
+  padding: clamp(1rem, 5vw, 2rem) 0;
 }
 
-/* Optional: Dark overlay to improve text visibility */
 .lobby-container::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(11, 12, 16, 0.7); /* Semi-transparent rich black */
+  inset: 0;
+  background-color: rgba(11, 12, 16, 0.7);
   z-index: 1;
 }
 
-/* Ensure content is above the overlay */
 .container {
   position: relative;
   z-index: 2;
+  width: min(95%, 1200px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Lobby Title */
+/* Título principal */
 .lobby-title {
   color: var(--golden-yellow);
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: bold;
   text-shadow: 0 0 10px rgba(225, 255, 0, 0.37);
+  margin-bottom: 2rem;
 }
 
-/* Section Subtitle */
 .section-subtitle {
   color: var(--platinum);
   text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
 }
 
-/* Player List Styles */
+/* Lista de jugadores */
 .player-list {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  justify-items: center;
+  padding: 1rem;
+  width: 100%;
 }
 
 .player-card {
   background-color: var(--royal-blue);
   border-radius: 15px;
-  padding: 1rem;
-  text-align: center;
-  width: 200px;
-  transition: transform 0.3s ease;
+  padding: clamp(0.75rem, 2vw, 1rem);
+  width: 100%;
+  max-width: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .player-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .player-avatar {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: clamp(80px, 15vw, 100px);
+  height: clamp(80px, 15vw, 100px);
   object-fit: cover;
   border: 3px solid var(--golden-yellow);
+  margin: 0 auto;
+  display: block;
 }
 
 .player-info h3 {
   color: var(--platinum);
-  margin-top: 0.5rem;
+  margin: 0.5rem 0;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
 }
 
 .player-info p {
   color: var(--golden-yellow);
-  font-weight: 500;
+  font-size: clamp(0.875rem, 2vw, 1rem);
 }
 
-/* Start Game Button */
-.btn-start-game {
-  background-color: var(--golden-yellow);
-  color: var(--rich-black);
-  border: none;
-  padding: 0.75rem 2rem;
-  font-size: 1.25rem;
-  font-weight: bold;
-  border-radius: 30px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.btn-start-game:hover {
-  background-color: var(--crimson-red);
-  color: var(--platinum);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .player-list {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .player-card {
-    margin-bottom: 1rem;
-  }
-
-  .lobby-title {
-    font-size: 2rem;
-  }
-}
-
-/* Room Code Section Styles */
+/* Sección de código de sala */
 .room-code-section {
-  margin-top: 2rem;
+  margin: clamp(1.5rem, 4vw, 2rem) 0;
+  width: 100%;
 }
 
 .room-code-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 1rem;
@@ -144,13 +121,64 @@
   color: var(--platinum);
   padding: 0.75rem 1.5rem;
   border-radius: 10px;
-  font-size: 1.5rem;
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
   letter-spacing: 0.2rem;
   font-weight: bold;
-  min-width: 250px;
+  width: min(100%, 250px);
   text-align: center;
 }
 
+/* Botones y contenedor de botones */
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.col-12.text-center.d-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.btn {
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 2rem);
+  border-radius: 30px;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-start-game,
+.btn-secondary {
+  width: min(100%, 200px);
+  margin: 0 auto;
+}
+
+.btn-start-game {
+  background-color: var(--golden-yellow);
+  color: var(--rich-black);
+}
+
+.btn-start-game:hover {
+  background-color: var(--crimson-red);
+  color: var(--platinum);
+  transform: translateY(-3px);
+}
+
+.btn-secondary {
+  background-color: var(--royal-blue);
+  color: var(--platinum);
+}
+
+.btn-secondary:hover {
+  background-color: var(--platinum);
+  color: var(--royal-blue);
+}
+
+/* Estilos del botón de copiar */
 .btn-copy {
   background-color: var(--golden-yellow);
   color: var(--rich-black);
@@ -161,10 +189,6 @@
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
-}
-
-.botones-container {
-  flex-direction: column;
 }
 
 .btn-copy:hover {
@@ -182,15 +206,98 @@
   transition: opacity 0.3s ease;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+.btn-start-game:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.player-card {
+  transition: all 0.3s ease;
+}
+
+.player-card.empty {
+  opacity: 0.6;
+}
+
+/* Media queries */
+@media (max-width: 576px) {
   .room-code-container {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .col-12.text-center.d-flex {
+    flex-direction: column;
+    align-items: center;
     gap: 1rem;
   }
 
+  .btn {
+    width: min(100%, 250px);
+    margin: 0 auto;
+  }
+
   .room-code {
-    font-size: 1.25rem;
-    min-width: 200px;
+    width: min(100%, 250px);
+  }
+
+  .row.mb-4 {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .player-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+.game-details {
+  background: rgba(30, 61, 89, 0.8);
+  border-radius: 10px;
+  padding: 0.75rem;
+  width: fit-content;
+  margin: 0 auto;
+  border: 1px solid var(--golden-yellow);
+}
+
+.details-card {
+  display: flex;
+  gap: 2rem;
+}
+
+.detail-item {
+  text-align: center;
+}
+
+.detail-item i {
+  color: var(--golden-yellow);
+  font-size: 1.2rem;
+}
+
+.detail-item h3 {
+  color: var(--platinum);
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+.detail-item p {
+  color: var(--golden-yellow);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+@media (max-width: 576px) {
+  .details-card {
+    gap: 1rem;
   }
 }

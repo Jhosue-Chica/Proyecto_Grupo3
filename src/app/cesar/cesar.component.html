@@ -8,7 +8,8 @@
         <div class="form-group mb-4">
           <label for="codigo" class="form-label">Introduce el código del juego</label>
           <input id="codigo" type="text" formControlName="codigo" maxlength="6" placeholder="Ingrese el código"
-            aria-describedby="codigoHelp" class="form-control" />
+            aria-describedby="codigoHelp" class="form-control text-center"
+            [class.is-invalid]="codigo?.invalid && (codigo?.dirty || codigo?.touched)" />
           <small class="codigo-longitud">{{ form.get('codigo')?.value?.length || 0 }}/6</small>
           <div *ngIf="codigo?.invalid && (codigo?.dirty || codigo?.touched)" class="jugadores-info mt-2">
             <small *ngIf="codigo?.hasError('required')" class="text-danger">El código es obligatorio.</small>
@@ -17,9 +18,20 @@
           </div>
         </div>
 
+        <!-- Mensajes de error del servidor -->
+        <div *ngIf="errorMessage" class="alert alert-danger mb-3">
+          {{ errorMessage }}
+        </div>
+
         <div class="botones-container">
-          <button type="submit" class="btn btn-primary btn-lg btn-hover" [disabled]="form.invalid" routerLink="/tabla" >Buscar Juego</button>
-          <button type=" button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home">
+          <button type="submit" class="btn btn-primary btn-lg btn-hover" [disabled]="form.invalid || isLoading">
+            <span *ngIf="!isLoading">Buscar Juego</span>
+            <span *ngIf="isLoading">
+              <!-- Puedes agregar un spinner aquí si lo deseas -->
+              Conectando...
+            </span>
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home" [disabled]="isLoading">
             Cancelar
           </button>
         </div>
