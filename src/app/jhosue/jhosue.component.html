@@ -101,7 +101,7 @@
         </button>
 
         <!-- Botón de Salir del Juego (siempre visible) -->
-        <button type="button" class="btn btn-secondary btn-lg btn-hover" routerLink="/home" [disabled]="isLoading"
+        <button type="button" class="btn btn-secondary btn-lg btn-hover" (click)="volverAlInicio()" [disabled]="isLoading"
           routerLinkActive="active">
           Salir del Juego
         </button>

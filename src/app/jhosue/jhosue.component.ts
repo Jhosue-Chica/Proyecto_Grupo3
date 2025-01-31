@@ -96,6 +96,7 @@ export class JhosueComponent implements OnInit, OnDestroy {
     }
   }
 
+
   private subscribeToMesaUpdates(): void {
     if (!this.mesaActual?.id) return;
 
@@ -122,61 +123,73 @@ export class JhosueComponent implements OnInit, OnDestroy {
     this.websocketService.disconnect();
   }
 
-// jhosue.component.ts
-async iniciarPartida() {
-  if (!this.mesaActual?.id || !this.usuario) return;
+  volverAlInicio(): void {
+    const jugadorId = 'ID_DEL_JUGADOR'; // Reemplaza con el ID real del jugador
+    const mesaId = 'ID_DE_LA_MESA'; // Reemplaza con el ID real de la mesa
 
-  this.isLoading = true;
-  this.errorMessage = '';
+    // Notificar al servidor que el jugador ha abandonado la mesa
+    this.websocketService.sendPlayerLeft(mesaId, jugadorId);
 
-  try {
-    // Preparar los jugadores para la partida
-    const jugadores = Object.values(this.mesaActual.jugadores).map(jugador => ({
-      id: jugador.id,
-      nombre: jugador.nombre
-    }));
-
-    // Crear la partida con la nueva estructura
-    const partidaData = {
-      id_mesa: this.mesaActual.id,
-      jugadores: jugadores
-    };
-
-    const partida = await this.gameService.createPartida(partidaData).toPromise();
-
-    if (partida) {
-      // Actualizar el estado de la mesa a "en_curso"
-      await this.gameService.updateMesaEstado(this.mesaActual.id, 'en_curso').toPromise();
-
-      // Notificar a todos los jugadores que el juego ha comenzado
-      this.websocketService.joinMesa(this.mesaActual.id, { id: this.usuario.name, nombre: this.usuario.name });
-      this.websocketService.sendStartGame(this.mesaActual.id);
-
-      // Obtener la mesa actualizada
-      const mesaActualizada = await this.gameService.getMesaById(this.mesaActual.id).toPromise();
-
-      if (mesaActualizada) {
-        // Actualizar la mesa en el GameService
-        this.gameService.setMesaActual(mesaActualizada);
-
-        // Navegar a la tabla con los datos actualizados
-        this.router.navigate(['/tabla'], {
-          state: {
-            partidaId: partida.id,
-            mesaId: this.mesaActual.id,
-            jugadores: mesaActualizada.jugadores,
-            estado: mesaActualizada.estado
-          }
-        });
-      }
-    }
-  } catch (error) {
-    console.error('Error al crear la partida:', error);
-    this.errorMessage = 'Error al iniciar la partida. Por favor, intenta nuevamente.';
-  } finally {
-    this.isLoading = false;
+    // Redirigir al jugador a la pantalla de inicio
+    this.router.navigate(['/home']);
   }
-}
+
+
+  // jhosue.component.ts
+  async iniciarPartida() {
+    if (!this.mesaActual?.id || !this.usuario) return;
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    try {
+      // Preparar los jugadores para la partida
+      const jugadores = Object.values(this.mesaActual.jugadores).map(jugador => ({
+        id: jugador.id,
+        nombre: jugador.nombre
+      }));
+
+      // Crear la partida con la nueva estructura
+      const partidaData = {
+        id_mesa: this.mesaActual.id,
+        jugadores: jugadores
+      };
+
+      const partida = await this.gameService.createPartida(partidaData).toPromise();
+
+      if (partida) {
+        // Actualizar el estado de la mesa a "en_curso"
+        await this.gameService.updateMesaEstado(this.mesaActual.id, 'en_curso').toPromise();
+
+        // Notificar a todos los jugadores que el juego ha comenzado
+        this.websocketService.joinMesa(this.mesaActual.id, { id: this.usuario.name, nombre: this.usuario.name });
+        this.websocketService.sendStartGame(this.mesaActual.id);
+
+        // Obtener la mesa actualizada
+        const mesaActualizada = await this.gameService.getMesaById(this.mesaActual.id).toPromise();
+
+        if (mesaActualizada) {
+          // Actualizar la mesa en el GameService
+          this.gameService.setMesaActual(mesaActualizada);
+
+          // Navegar a la tabla con los datos actualizados
+          this.router.navigate(['/tabla'], {
+            state: {
+              partidaId: partida.id,
+              mesaId: this.mesaActual.id,
+              jugadores: mesaActualizada.jugadores,
+              estado: mesaActualizada.estado
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error al crear la partida:', error);
+      this.errorMessage = 'Error al iniciar la partida. Por favor, intenta nuevamente.';
+    } finally {
+      this.isLoading = false;
+    }
+  }
 
   copyRoomCode(): void {
     if (this.roomCode) {

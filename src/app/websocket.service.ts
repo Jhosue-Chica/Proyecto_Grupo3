@@ -101,6 +101,21 @@ export class WebsocketService {
     }
   }
 
+  sendPlayerLeft(mesaId: string, jugadorId: string) {
+
+    if (this.socket?.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify({
+        type: 'player_left',
+        mesaId: mesaId,
+        jugadorId: jugadorId
+      }));
+    } else {
+      console.warn('WebSocket no está conectado, no se puede enviar la notificación de salida del jugador.');
+    }
+  }
+
+
+
   // Enviar actualización de la tabla
   sendTableUpdate(mesaId: string, rowIndex: number, colIndex: number, value: string) {
     if (this.socket?.readyState === WebSocket.OPEN) {

@@ -59,6 +59,7 @@ export class BrithneyComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.websocketService.getTableUpdates().subscribe(update => {
         if (update && update.type === 'table_updated') {
+          console.log('Actualización de tabla recibida:', update);
           this.filas[update.rowIndex].valores[update.colIndex] = update.value;
         }
       })
